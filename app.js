@@ -14,13 +14,13 @@ var routes = require('./routes/index');
 var app = express();
 
 //set app template engine function and file extension
-app.engine('swig', swig.renderFile);
+app.engine('html', swig.renderFile);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'swig');
+app.set('view engine', 'html');
 
-app.use(favicon());
+app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
