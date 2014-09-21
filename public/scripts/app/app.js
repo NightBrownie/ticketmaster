@@ -1,3 +1,5 @@
-/**
- * Created by Nikita Klyushnikov on 21.09.2014.
- */
+(function() {
+    'use strict';
+
+    var app = angular.module('ticket-master', []);
+})(window);
