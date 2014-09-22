@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="ticket-master">
   <head>
-    <title>{{ title }}</title>
+    <title>[[pageTitle]]</title>
     <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
   </head>
-  <body ng-app="ticket-master">
-    <h1>
-        AngularJS App will be placed here</h1>
+  <body>
+    {% include "./partials/header.html" %}
+
+    <div class="container" ui-view="main-view">
+    </div>
+
+    {% include "./partials/footer.html" %}
+
+    {# Libraries generic #}
+    <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    {# Libraries angular #}
+    <script type="text/javascript" src="/libs/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/libs/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="/libs/bower_components/ui-router/release/angular-ui-router.min.js"></script>
+
+    {# Custom scripts #}
+    <script type="text/javascript" src="/scripts/stickyFooterAdjuster.js"></script>
+
+    {# Custom scripts app #}
+    <script type="text/javascript" src="/app/app.js"></script>
+    <script type="text/javascript" src="/app/config/index.js"></script>
+    <script type="text/javascript" src="/app/config/routes.js"></script>
+
+    <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
+    <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
+
+    <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
   </body>
 </html>

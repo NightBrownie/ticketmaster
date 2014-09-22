@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('ticket-master')
-        .controller(['$scope', function($scope) {
+        .controller('filmsCtrl', ['$scope', function($scope) {
 
         }]);
 })(window);

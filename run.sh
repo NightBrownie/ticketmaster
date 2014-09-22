@@ -1,1 +1,1 @@
-node --debug ./bin/www.js
+supervisor --debug ./bin/www.js

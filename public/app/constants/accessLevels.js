@@ -7,7 +7,7 @@
         administrator: 4 //100
     };
 
-    var app = angular.module('constants', [])
+    angular.module('constants', [])
     .constant('accessLevels', {
         userRoles: userRoles,
 

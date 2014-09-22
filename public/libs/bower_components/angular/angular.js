@@ -7400,7 +7400,7 @@ function parseHeaders(headers) {
  * @param {(string|Object)} headers Headers to provide access to.
  * @returns {function(string=)} Returns a getter function which if called with:
  *
- *   - if called with single an argument returns a single header value or null
+ *   - if called with single an argument returns a single header.html value or null
  *   - if called with no arguments returns an object containing all headers.
  */
 function headersGetter(headers) {
@@ -7467,7 +7467,7 @@ function $HttpProvider() {
    * - **`defaults.xsrfCookieName`** - {string} - Name of cookie containing the XSRF token.
    * Defaults value is `'XSRF-TOKEN'`.
    *
-   * - **`defaults.xsrfHeaderName`** - {string} - Name of HTTP header to populate with the
+   * - **`defaults.xsrfHeaderName`** - {string} - Name of HTTP header.html to populate with the
    * XSRF token. Defaults value is `'X-XSRF-TOKEN'`.
    *
    * - **`defaults.headers`** - {Object} - Default headers for all $http requests.
@@ -7652,9 +7652,9 @@ function $HttpProvider() {
      *
      * - `$httpProvider.defaults.headers.common` (headers that are common for all requests):
      *   - `Accept: application/json, text/plain, * / *`
-     * - `$httpProvider.defaults.headers.post`: (header defaults for POST requests)
+     * - `$httpProvider.defaults.headers.post`: (header.html defaults for POST requests)
      *   - `Content-Type: application/json`
-     * - `$httpProvider.defaults.headers.put` (header defaults for PUT requests)
+     * - `$httpProvider.defaults.headers.put` (header.html defaults for PUT requests)
      *   - `Content-Type: application/json`
      *
      * To add or overwrite these defaults, simply add or remove a property from these configuration
@@ -7895,14 +7895,14 @@ function $HttpProvider() {
      * [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) is a technique by which
      * an unauthorized site can gain your user's private data. Angular provides a mechanism
      * to counter XSRF. When performing XHR requests, the $http service reads a token from a cookie
-     * (by default, `XSRF-TOKEN`) and sets it as an HTTP header (`X-XSRF-TOKEN`). Since only
+     * (by default, `XSRF-TOKEN`) and sets it as an HTTP header.html (`X-XSRF-TOKEN`). Since only
      * JavaScript that runs on your domain could read the cookie, your server can be assured that
-     * the XHR came from JavaScript running on your domain. The header will not be set for
+     * the XHR came from JavaScript running on your domain. The header.html will not be set for
      * cross-domain requests.
      *
      * To take advantage of this, your server needs to set a token in a JavaScript readable session
      * cookie called `XSRF-TOKEN` on the first HTTP GET request. On subsequent XHR requests the
-     * server can verify that the cookie matches `X-XSRF-TOKEN` HTTP header, and therefore be sure
+     * server can verify that the cookie matches `X-XSRF-TOKEN` HTTP header.html, and therefore be sure
      * that only JavaScript running on your domain could have sent the request. The token must be
      * unique for each user and must be verifiable by the server (to prevent the JavaScript from
      * making up its own tokens). We recommend that the token is a digest of your site's
@@ -7925,8 +7925,8 @@ function $HttpProvider() {
      *    - **data** – `{string|Object}` – Data to be sent as the request message data.
      *    - **headers** – `{Object}` – Map of strings or functions which return strings representing
      *      HTTP headers to send to the server. If the return value of a function is null, the
-     *      header will not be sent.
-     *    - **xsrfHeaderName** – `{string}` – Name of HTTP header to populate with the XSRF token.
+     *      header.html will not be sent.
+     *    - **xsrfHeaderName** – `{string}` – Name of HTTP header.html to populate with the XSRF token.
      *    - **xsrfCookieName** – `{string}` – Name of cookie containing the XSRF token.
      *    - **transformRequest** –
      *      `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
@@ -8140,7 +8140,7 @@ function $HttpProvider() {
 
         defHeaders = extend({}, defHeaders.common, defHeaders[lowercase(config.method)]);
 
-        // using for-in instead of forEach to avoid unecessary iteration after header has been found
+        // using for-in instead of forEach to avoid unecessary iteration after header.html has been found
         defaultHeadersIteration:
         for (defHeaderName in defHeaders) {
           lowercaseDefHeaderName = lowercase(defHeaderName);
@@ -8154,7 +8154,7 @@ function $HttpProvider() {
           reqHeaders[defHeaderName] = defHeaders[defHeaderName];
         }
 
-        // execute if header value is a function for merged headers
+        // execute if header.html value is a function for merged headers
         execHeaders(reqHeaders);
         return reqHeaders;
 
@@ -18743,7 +18743,7 @@ var ngClassEvenDirective = classDirective('Even', 1);
  *
  * `ngCloak` works in cooperation with the following css rule embedded within `angular.js` and
  * `angular.min.js`.
- * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.less` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * ```css
  * [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -19040,7 +19040,7 @@ var ngControllerDirective = [function() {
  *
  * CSP forbids JavaScript to inline stylesheet rules. In non CSP mode Angular automatically
  * includes some CSS rules (e.g. {@link ng.directive:ngCloak ngCloak}).
- * To make those directives work in CSP mode, include the `angular-csp.css` manually.
+ * To make those directives work in CSP mode, include the `angular-csp.less` manually.
  *
  * Angular tries to autodetect if CSP is active and automatically turn on the CSP-safe mode. This
  * autodetection however triggers a CSP error to be logged in the console:
@@ -20283,9 +20283,9 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  *
  * The example below makes use of this feature:
  * ```html
- *   <header ng-repeat-start="item in items">
+ *   <header.html ng-repeat-start="item in items">
  *     Header {{ item }}
- *   </header>
+ *   </header.html>
  *   <div class="body">
  *     Body {{ item }}
  *   </div>
@@ -20296,18 +20296,18 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  *
  * And with an input of {@type ['A','B']} for the items variable in the example above, the output will evaluate to:
  * ```html
- *   <header>
+ *   <header.html>
  *     Header A
- *   </header>
+ *   </header.html>
  *   <div class="body">
  *     Body A
  *   </div>
  *   <footer>
  *     Footer A
  *   </footer>
- *   <header>
+ *   <header.html>
  *     Header B
- *   </header>
+ *   </header.html>
  *   <div class="body">
  *     Body B
  *   </div>
@@ -20657,7 +20657,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
  * provided to the `ngShow` attribute. The element is shown or hidden by removing or adding
  * the `.ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
  * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.less` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * ```html
  * <!-- when $scope.myValue is truthy (element is visible) -->
@@ -20814,7 +20814,7 @@ var ngShowDirective = ['$animate', function($animate) {
  * provided to the `ngHide` attribute. The element is shown or hidden by removing or adding
  * the `ng-hide` CSS class onto the element. The `.ng-hide` CSS class is predefined
  * in AngularJS and sets the display style to none (using an !important flag).
- * For CSP mode please add `angular-csp.css` to your html file (see {@link ng.directive:ngCsp ngCsp}).
+ * For CSP mode please add `angular-csp.less` to your html file (see {@link ng.directive:ngCsp ngCsp}).
  *
  * ```html
  * <!-- when $scope.myValue is truthy (element is hidden) -->
