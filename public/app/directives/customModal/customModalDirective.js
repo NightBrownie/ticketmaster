@@ -3,6 +3,8 @@
 
     angular.module('directives')
         .controller('customModalCtrl', ['$scope', function($scope) {
+            $scope.show = $scope.show !== undefined ? $scope.show : false;
+
             $scope.hideModal = function(e) {
                 $scope.show = false;
             };
