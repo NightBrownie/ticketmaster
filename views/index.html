@@ -5,14 +5,8 @@
     <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
   </head>
   <body>
-    {% include "./partials/header.html" %}
-
-    <div id="main-content-container">
-        <div class="container" ui-view="main-view">
-        </div>
-    </div>
-
-    {% include "./partials/footer.html" %}
+    <ui-view name="main-view">
+    </ui-view>
 
     {# Libraries generic #}
     <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
@@ -36,6 +30,7 @@
     <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
     <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
 
+    <script type="text/javascript" src="/app/controllers/mainCtrl.js"></script>
     <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
     <script type="text/javascript" src="/app/controllers/profileCtrl.js"></script>
     <script type="text/javascript" src="/app/controllers/scheduleCtrl.js"></script>

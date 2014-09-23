@@ -8,52 +8,60 @@
                 $urlRouterProvider.otherwise(routingParameters.defaultRoute);
 
                 //states
-                $stateProvider.state('films', {
-                    url: '/films',
+                $stateProvider.state('main', {
+                    abstract: true,
                     views: {
                         'main-view': {
+                            templateUrl: '/app/views/main.html',
+                            controller: 'mainCtrl'
+                        }
+                    }
+                }).state('main.films', {
+                    url: '/films',
+                    views: {
+                        'main-content-view': {
                             templateUrl: '/app/views/films.html',
                             controller: 'filmsCtrl'
                         }
                     },
                     pageTitle: 'Films | Watch catalogue of actual films'
-                }).state('profile', {
+                }).state('main.profile', {
                     url: '/profile',
                     views: {
-                        'main-view': {
+                        'main-content-view': {
                             templateUrl: '/app/views/profile.html',
                             controller: 'profileCtrl'
                         }
                     },
                     pageTitle: 'User Profile | Manage your account and get actual information'
-                }).state('schedule', {
+                }).state('main.schedule', {
                     url: '/schedule',
                     views: {
-                        'main-view': {
+                        'main-content-view': {
                             templateUrl: '/app/views/schedule.html',
                             controller: 'scheduleCtrl'
                         }
                     },
                     pageTitle: 'Film schedule | Choose the film, theater and time you prefer'
-                }).state('theaters', {
+                }).state('main.theaters', {
                     url: '/theaters',
                     views: {
-                        'main-view': {
+                        'main-content-view': {
                             templateUrl: '/app/views/theaters.html',
                             controller: 'theatersCtrl'
                         }
                     },
                     pageTitle: 'Theaters | Choose the best place to go out'
-                }).state('tickets', {
+                }).state('main.tickets', {
                     url: '/tickets',
                     views: {
-                        'main-view': {
+                        'main-content-view': {
                             templateUrl: '/app/views/tickets.html',
                             controller: 'ticketsCtrl'
                         }
                     },
                     pageTitle: 'Buy tickets | Choose best price at best time'
-                });
+                 });
 
                 $locationProvider.html5Mode(true);
             }])
