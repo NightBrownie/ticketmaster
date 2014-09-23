@@ -14,6 +14,10 @@
                         'main-view': {
                             templateUrl: '/app/views/main.html',
                             controller: 'mainCtrl'
+                        },
+                        'user-menu-view': {
+                            templateUrl: '/app/views/userMenu.html',
+                            controller: 'userMenuCtrl'
                         }
                     }
                 }).state('main.films', {
