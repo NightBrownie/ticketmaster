@@ -1,1 +1,16 @@
-login form directive template mock
+<div class="login-form-container">
+    <div class="login-register-tab-selector">
+        <ul class="nav nav-pills" role="tablist">
+            <li ng-class="{active: isActiveTab('signin')}"><a ng-click="activateTab('signin')">Sign In</a></li>
+            <li ng-class="{active: isActiveTab('register')}"><a ng-click="activateTab('register')">Register</a></li>
+        </ul>
+    </div>
+
+    <div class="content-tab login-tab" ng-show="isActiveTab('signin')">
+        Sign In
+    </div>
+
+    <div class="content-tab register-tab" ng-show="isActiveTab('register')">
+        Register
+    </div>
+</div>
