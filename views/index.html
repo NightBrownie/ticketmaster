@@ -1,42 +1,80 @@
 <!DOCTYPE html>
 <html ng-app="ticket-master">
   <head>
-    <title>[[pageTitle]]</title>
-    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
+      <title>[[pageTitle]]</title>
+      <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
   </head>
   <body>
-    <ui-view name="main-view">
-    </ui-view>
+      <header class="navbar navbar-default" role="navigation">
+          <div class="container container-fluid">
+              <div class="navbar-header">
+                  <div class="navbar-brand">
+                      Ticket Master
+                  </div>
+              </div>
 
-    {# Libraries generic #}
-    <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+              <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li ui-sref-active="active">
+                          <a ui-sref="main.films">Films</a>
+                      </li>
+                      <li ui-sref-active="active">
+                          <a ui-sref="main.theaters">Theaters</a>
+                      </li>
+                      <li ui-sref-active="active">
+                          <a ui-sref="main.schedule">Schedule</a>
+                      </li>
+                      <li ui-sref-active="active">
+                          <a ui-sref="main.tickets">Buy tickets</a>
+                      </li>
 
-    {# Libraries angular #}
-    <script type="text/javascript" src="/libs/bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="/libs/bower_components/angular-animate/angular-animate.min.js"></script>
-    <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.min.js"></script>
-    <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-    <script type="text/javascript" src="/libs/bower_components/ui-router/release/angular-ui-router.min.js"></script>
+                      <li class="divider"></li>
 
-    {# Custom scripts #}
-    <script type="text/javascript" src="/scripts/stickyFooterAdjuster.js"></script>
+                      <li ui-view="user-menu-view" class="nav navbar-nav">
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </header>
 
-    {# Custom scripts app #}
-    <script type="text/javascript" src="/app/app.js"></script>
-    <script type="text/javascript" src="/app/config/index.js"></script>
-    <script type="text/javascript" src="/app/config/routes.js"></script>
+      <ui-view name="main-view">
+      </ui-view>
 
-    <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
-    <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
+      <footer class="sticky-footer">
+          <div class="container footer-content-container">
+              TicketMaster © 2014 Nikita Klyushnikov
+          </div>
+      </footer>
 
-    <script type="text/javascript" src="/app/controllers/mainCtrl.js"></script>
-    <script type="text/javascript" src="/app/controllers/userMenuCtrl.js"></script>
+      {# Libraries generic #}
+      <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
-    <script type="text/javascript" src="/app/controllers/profileCtrl.js"></script>
-    <script type="text/javascript" src="/app/controllers/scheduleCtrl.js"></script>
-    <script type="text/javascript" src="/app/controllers/theatersCtrl.js"></script>
-    <script type="text/javascript" src="/app/controllers/ticketsCtrl.js"></script>
+      {# Libraries angular #}
+      <script type="text/javascript" src="/libs/bower_components/angular/angular.min.js"></script>
+      <script type="text/javascript" src="/libs/bower_components/angular-animate/angular-animate.min.js"></script>
+      <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+      <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+      <script type="text/javascript" src="/libs/bower_components/ui-router/release/angular-ui-router.min.js"></script>
+
+      {# Custom scripts #}
+      <script type="text/javascript" src="/scripts/stickyFooterAdjuster.js"></script>
+
+      {# Custom scripts app #}
+      <script type="text/javascript" src="/app/app.js"></script>
+      <script type="text/javascript" src="/app/config/index.js"></script>
+      <script type="text/javascript" src="/app/config/routes.js"></script>
+
+      <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
+      <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
+
+      <script type="text/javascript" src="/app/controllers/mainCtrl.js"></script>
+      <script type="text/javascript" src="/app/controllers/userMenuCtrl.js"></script>
+
+      <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
+      <script type="text/javascript" src="/app/controllers/profileCtrl.js"></script>
+      <script type="text/javascript" src="/app/controllers/scheduleCtrl.js"></script>
+      <script type="text/javascript" src="/app/controllers/theatersCtrl.js"></script>
+      <script type="text/javascript" src="/app/controllers/ticketsCtrl.js"></script>
   </body>
 </html>
