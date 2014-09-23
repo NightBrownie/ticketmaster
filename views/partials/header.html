@@ -8,18 +8,40 @@
 
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#">Films</a></li>
-					<li><a href="#">Theaters</a></li>
-					<li><a href="#">Schedule</a></li>
-					<li><a href="#">Buy tickets</a></li>
+					<li ui-sref-active="active">
+						<a ui-sref="films">Films</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="theaters">Theaters</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="schedule">Schedule</a>
+					</li>
+					<li ui-sref-active="active">
+						<a ui-sref="tickets">Buy tickets</a>
+					</li>
+
 					<li class="divider"></li>
-					<li><a href="#">Sign In</a></li>
+
+					<li>
+						<a href="#">Sign In</a>
+					</li>
+
 					<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">User Name<span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							User Name
+							<span class="caret"></span>
+						</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Tickets</a></li>
-							<li><a href="#">Sign Out</a></li>
+							<li ui-sref-active="active">
+								<a ui-sref="profile">Profile</a>
+							</li>
+							<li>
+								<a href="#">Tickets</a>
+							</li>
+							<li>
+								<a href="#">Sign Out</a>
+							</li>
 						</ul>
 					</li>
 			</ul>
