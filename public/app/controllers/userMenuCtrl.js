@@ -3,6 +3,10 @@
 
     angular.module('ticket-master')
         .controller('userMenuCtrl', ['$scope', function($scope) {
+            $scope.isLoginModalShown = false;
 
+            $scope.showLoginModal = function() {
+                $scope.isLoginModalShown = true;
+            };
         }]);
 })(window);

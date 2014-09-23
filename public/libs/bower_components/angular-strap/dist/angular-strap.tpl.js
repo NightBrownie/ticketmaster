@@ -36,10 +36,10 @@ angular.module('mgcrea.ngStrap.dropdown').run(['$templateCache', function($templ
 
 }]);
 
-// Source: modal.tpl.js
+// Source: customModal.tpl.js
 angular.module('mgcrea.ngStrap.modal').run(['$templateCache', function($templateCache) {
 
-  $templateCache.put('modal/modal.tpl.html', '<div class="modal" tabindex="-1" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header.html" ng-show="title"><button type="button" class="close" ng-click="$hide()">&times;</button><h4 class="modal-title" ng-bind="title"></h4></div><div class="modal-body" ng-bind="content"></div><div class="modal-footer"><button type="button" class="btn btn-default" ng-click="$hide()">Close</button></div></div></div></div>');
+  $templateCache.put('customModal/customModal.tpl.html', '<div class="customModal" tabindex="-1" role="dialog"><div class="customModal-dialog"><div class="customModal-content"><div class="customModal-header.html" ng-show="title"><button type="button" class="close" ng-click="$hide()">&times;</button><h4 class="customModal-title" ng-bind="title"></h4></div><div class="customModal-body" ng-bind="content"></div><div class="customModal-footer"><button type="button" class="btn btn-default" ng-click="$hide()">Close</button></div></div></div></div>');
 
 }]);
 

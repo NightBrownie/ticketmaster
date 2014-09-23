@@ -25,7 +25,7 @@ angular.module('mgcrea.ngStrap.aside', ['mgcrea.ngStrap.modal'])
       show: true
     };
 
-    this.$get = ["$modal", function($modal) {
+    this.$get = ["$custom-modal", function($modal) {
 
       function AsideFactory(config) {
 

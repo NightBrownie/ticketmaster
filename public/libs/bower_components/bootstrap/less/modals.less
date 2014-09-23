@@ -2,17 +2,17 @@
 // Modals
 // --------------------------------------------------
 
-// .modal-open      - body class for killing the scroll
-// .modal           - container to scroll within
-// .modal-dialog    - positioning shell for the actual modal
-// .modal-content   - actual modal w/ bg and corners and shit
+// .customModal-open      - body class for killing the scroll
+// .customModal           - container to scroll within
+// .customModal-dialog    - positioning shell for the actual customModal
+// .customModal-content   - actual customModal w/ bg and corners and shit
 
 // Kill the scroll on the body
 .modal-open {
   overflow: hidden;
 }
 
-// Container that the modal scrolls within
+// Container that the customModal scrolls within
 .modal {
   display: none;
   overflow: hidden;
@@ -28,7 +28,7 @@
   // https://github.com/twbs/bootstrap/pull/10951.
   outline: 0;
 
-  // When fading in the modal, animate it to slide down
+  // When fading in the customModal, animate it to slide down
   &.fade .modal-dialog {
     .translate3d(0, -25%, 0);
     .transition-transform(~"0.3s ease-out");
@@ -40,14 +40,14 @@
   overflow-y: auto;
 }
 
-// Shell div to position the modal with bottom padding
+// Shell div to position the customModal with bottom padding
 .modal-dialog {
   position: relative;
   width: auto;
   margin: 10px;
 }
 
-// Actual modal
+// Actual customModal
 .modal-content {
   position: relative;
   background-color: @modal-content-bg;
@@ -56,7 +56,7 @@
   border-radius: @border-radius-large;
   .box-shadow(0 3px 9px rgba(0,0,0,.5));
   background-clip: padding-box;
-  // Remove focus outline from opened modal
+  // Remove focus outline from opened customModal
   outline: 0;
 }
 
@@ -75,7 +75,7 @@
 }
 
 // Modal header.html
-// Top section of the modal w/ title and dismiss
+// Top section of the customModal w/ title and dismiss
 .modal-header {
   padding: @modal-title-padding;
   border-bottom: 1px solid @modal-header-border-color;
@@ -93,7 +93,7 @@
 }
 
 // Modal body
-// Where all modal content resides (sibling of .modal-header.html and .modal-footer)
+// Where all customModal content resides (sibling of .customModal-header.html and .customModal-footer)
 .modal-body {
   position: relative;
   padding: @modal-inner-padding;
@@ -121,7 +121,7 @@
   }
 }
 
-// Measure scrollbar width for padding body during modal show/hide
+// Measure scrollbar width for padding body during customModal show/hide
 .modal-scrollbar-measure {
   position: absolute;
   top: -9999px;
@@ -130,9 +130,9 @@
   overflow: scroll;
 }
 
-// Scale up the modal
+// Scale up the customModal
 @media (min-width: @screen-sm-min) {
-  // Automatically set modal's width for larger viewports
+  // Automatically set customModal's width for larger viewports
   .modal-dialog {
     width: @modal-md;
     margin: 30px auto;

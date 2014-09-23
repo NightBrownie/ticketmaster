@@ -98,7 +98,7 @@ module.exports = function (grunt) {
           'js/carousel.js',
           'js/collapse.js',
           'js/dropdown.js',
-          'js/modal.js',
+          'js/customModal.js',
           'js/tooltip.js',
           'js/popover.js',
           'js/scrollspy.js',

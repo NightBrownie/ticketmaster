@@ -273,7 +273,7 @@ angular.module('mgcrea.ngStrap.aside', ['mgcrea.ngStrap.modal'])
       show: true
     };
 
-    this.$get = ["$modal", function($modal) {
+    this.$get = ["$customModal", function($modal) {
 
       function AsideFactory(config) {
 
@@ -367,7 +367,7 @@ angular.module('mgcrea.ngStrap.alert', ['mgcrea.ngStrap.modal'])
       dismissable: true
     };
 
-    this.$get = ["$modal", "$timeout", function($modal, $timeout) {
+    this.$get = ["$customModal", "$timeout", function($modal, $timeout) {
 
       function AlertFactory(config) {
 
@@ -1983,10 +1983,10 @@ angular.module('mgcrea.ngStrap.helpers.parseOptions', [])
 
 // });
 
-// Source: modal.js
+// Source: customModal.js
 angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
 
-  .provider('$modal', function() {
+  .provider('$customModal', function() {
 
     var defaults = this.defaults = {
       animation: 'am-fade',
@@ -1994,7 +1994,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
       prefixClass: 'modal',
       prefixEvent: 'modal',
       placement: 'top',
-      template: 'modal/modal.tpl.html',
+      template: 'customModal/customModal.tpl.html',
       contentTemplate: false,
       container: false,
       element: null,
@@ -2060,7 +2060,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
           });
         }
 
-        // Fetch, compile then initialize modal
+        // Fetch, compile then initialize customModal
         var modalLinker, modalElement;
         var backdropElement = angular.element('<div class="' + options.prefixClass + '-backdrop"/>');
         $modal.$promise.then(function(template) {
@@ -2235,7 +2235,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
 
   })
 
-  .directive('bsModal', ["$window", "$sce", "$modal", function($window, $sce, $modal) {
+  .directive('bsModal', ["$window", "$sce", "$customModal", function($window, $sce, $modal) {
 
     return {
       restrict: 'EAC',
@@ -2264,7 +2264,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
           }
         }, true);
 
-        // Initialize modal
+        // Initialize customModal
         var modal = $modal(options);
 
         // Trigger

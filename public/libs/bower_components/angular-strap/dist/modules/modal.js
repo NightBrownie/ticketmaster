@@ -9,7 +9,7 @@
 
 angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
 
-  .provider('$modal', function() {
+  .provider('$customModal', function() {
 
     var defaults = this.defaults = {
       animation: 'am-fade',
@@ -17,7 +17,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
       prefixClass: 'modal',
       prefixEvent: 'modal',
       placement: 'top',
-      template: 'modal/modal.tpl.html',
+      template: 'customModal/customModal.tpl.html',
       contentTemplate: false,
       container: false,
       element: null,
@@ -83,7 +83,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
           });
         }
 
-        // Fetch, compile then initialize modal
+        // Fetch, compile then initialize customModal
         var modalLinker, modalElement;
         var backdropElement = angular.element('<div class="' + options.prefixClass + '-backdrop"/>');
         $modal.$promise.then(function(template) {
@@ -258,7 +258,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
 
   })
 
-  .directive('bsModal', ["$window", "$sce", "$modal", function($window, $sce, $modal) {
+  .directive('bsModal', ["$window", "$sce", "$customModal", function($window, $sce, $modal) {
 
     return {
       restrict: 'EAC',
@@ -287,7 +287,7 @@ angular.module('mgcrea.ngStrap.modal', ['mgcrea.ngStrap.helpers.dimensions'])
           }
         }, true);
 
-        // Initialize modal
+        // Initialize customModal
         var modal = $modal(options);
 
         // Trigger

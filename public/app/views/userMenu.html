@@ -1,5 +1,5 @@
-<li>
-    <a href="#">Sign In</a>
+<li class="sign-in-button" ng-click="showLoginModal()">
+    <a>Sign In</a>
 </li>
 
 <li class="dropdown">
@@ -19,3 +19,7 @@
         </li>
     </ul>
 </li>
+
+<custom-modal ng-show="isLoginModalShown" show="isLoginModalShown">
+    <div>test</div>
+</custom-modal>

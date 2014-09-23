@@ -3,5 +3,6 @@
 
     var app = angular.module('ticket-master', ['mgcrea.ngStrap',
         'ui.router',
-        'constants']);
+        'constants',
+        'directives']);
 })(window);

@@ -31,7 +31,7 @@ angular.module('mgcrea.ngStrap.alert', ['mgcrea.ngStrap.modal'])
       dismissable: true
     };
 
-    this.$get = ["$modal", "$timeout", function($modal, $timeout) {
+    this.$get = ["$custom-modal", "$timeout", function($modal, $timeout) {
 
       function AlertFactory(config) {
 
