@@ -2,15 +2,23 @@
     'use strict';
 
     var mongoose = require('../config/mongooseConfig');
+    var bcrypt = require('bcrypt');
     var secret = require('../config/secret');
+    var accessLevels = require('../modules/authorization/accessLevels');
+    var userValidators = require('../modules/validation/userValidators');
 
     var SALT_WORK_FACTOR = secret.user.SALT_WORK_FACTOR;
 
     var userSchema = mongoose.Schema({
         username: { type: String, required: true, unique: true },
         email: { type: String, required: true, unique: true },
-        password: { type: String, required: true }
+        password: { type: String, required: true },
+        role: { type: Number, required: true, default: accessLevels.userRoles.user }
     });
+
+    userSchema.path('username').validate(userValidators.validateUsername, 'Invalid username');
+    userSchema.path('password').validate(userValidators.validatePassword, 'Invalid password');
+    userSchema.path('email').validate(userValidators.validateEmail, 'Invalid email');
 
     userSchema.pre('save', function(next) {
         var user = this;
@@ -35,7 +43,14 @@
         });
     };
 
-    var userModel = mongoose.model('User', userSchema);
+    userSchema.methods.hasAccessLevel = function(accessLevel, cb) {
+        if (isNumber(accessLevel) && (this.role & accessLevel))
+        {
+            cb(null, true);
+        } else {
+            cb(null, false);
+        }
+    };
 
-    module.exports = userModel;
+    module.exports = mongoose.model('User', userSchema);
 })(module);
