@@ -1,7 +1,7 @@
 (function(module, undefined) {
     'use strict';
 
-    var mongoose = require('../modules/mongoose/');
+    var mongoose = require('../config/mongooseConfig');
 
-    
+    var mongoose
 })(module);
