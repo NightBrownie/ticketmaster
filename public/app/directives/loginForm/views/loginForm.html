@@ -1,16 +1,42 @@
 <div class="login-form-container">
-    <div class="login-register-tab-selector">
-        <ul class="nav nav-pills" role="tablist">
+    <div class="login-register-tab-container">
+        <ul class="nav nav-tabs" role="tablist">
             <li ng-class="{active: isActiveTab('signin')}"><a ng-click="activateTab('signin')">Sign In</a></li>
             <li ng-class="{active: isActiveTab('register')}"><a ng-click="activateTab('register')">Register</a></li>
         </ul>
     </div>
 
     <div class="content-tab login-tab" ng-show="isActiveTab('signin')">
-        Sign In
+        <form class="login-form" ng-submit="loginSubmit(loginUser)">
+            <div class="username-container">
+                <input type="text" class="form-control" placeholder="Username/Email" ng-model="loginUser.username">
+            </div>
+            <div class="password-container">
+                <input type="password" class="form-control" placeholder="Password" ng-model="loginUser.password">
+            </div>
+            <div class="submit-button-container">
+                <button type="submit" class="form-control btn btn-success">Sign In</button>
+            </div>
+        </form>
     </div>
 
     <div class="content-tab register-tab" ng-show="isActiveTab('register')">
-        Register
+        <form class="register-form" ng-submit="registerSubmit(registerUser)">
+            <div class="username-container">
+                <input type="text" class="form-control" placeholder="Username" ng-model="registerUser.username">
+            </div>
+            <div class="email-container">
+                <input type="text" class="form-control" placeholder="Email" ng-model="registerUser.email">
+            </div>
+            <div class="password-container">
+                <input type="password" class="form-control" placeholder="Password" ng-model="registerUser.password">
+            </div>
+            <div class="confirm-password-container">
+                <input type="password" class="form-control" placeholder="Confirm Password" ng-model="registerUser.confirmPassword">
+            </div>
+            <div class="submit-button-container">
+                <button type="submit" class="form-control btn btn-success">Register</button>
+            </div>
+        </form>
     </div>
 </div>
