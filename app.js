@@ -11,6 +11,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 
+//api controllers
+var userRoutes = require('./routes/user');
+
 var app = express();
 
 //set app template engine function and file extension
@@ -27,6 +30,9 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//api controllers routers
+app.use('/api',userRoutes);
 
 //default route
 app.use('/*', routes);
