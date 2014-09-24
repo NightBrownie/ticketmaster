@@ -123,8 +123,29 @@
         });
     });
 
-    router.post('/user/getUserInfo', function(req, res) {
+    //get userinfo by username
+    router.get('/user/userinfo', function(req, res) {
+        var username = req.query.username || '';
 
+        if (username === '') {
+            return res.send(400);
+        }
+
+        UserDAO.findOne({
+                username: username
+            },
+            {
+                _id: 0,
+                password: 0,
+                __v: 0
+            },
+            function(err, user) {
+                if (err || !user) {
+                    return res.send(500);
+                }
+
+                res.json(user);
+            });
     });
 
     module.exports = router;

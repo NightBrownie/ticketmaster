@@ -16,6 +16,15 @@
             public: userRoles.anonymous | userRoles.user | userRoles.administrator, //111
             user: userRoles.user, //010
             administrator: userRoles.administrator //100
+        },
+
+        hasAccessLevel: function(accessLevel) {
+            if (isNumber(accessLevel) && (this.role & accessLevel))
+            {
+                cb(null, true);
+            } else {
+                cb(null, false);
+            }
         }
     };
 })(module);

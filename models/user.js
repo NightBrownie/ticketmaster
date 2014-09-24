@@ -43,14 +43,5 @@
         });
     };
 
-    userSchema.methods.hasAccessLevel = function(accessLevel, cb) {
-        if (isNumber(accessLevel) && (this.role & accessLevel))
-        {
-            cb(null, true);
-        } else {
-            cb(null, false);
-        }
-    };
-
     module.exports = mongoose.model('User', userSchema);
 })(module);
