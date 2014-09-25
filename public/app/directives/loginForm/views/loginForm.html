@@ -30,12 +30,12 @@
             <div class="username-container">
                 <input type="text" class="form-control" placeholder="Username"
                        ng-model="registerUser.username" ng-pattern="validationRegularExpressions.username"
-                       ng-required="true">
+                       ng-required="true" existance-validator="getCheckUsernameEndpoint(registerUser.username)">
             </div>
             <div class="email-container">
                 <input type="email" class="form-control" placeholder="Email"
                        ng-model="registerUser.email" ng-pattern="validationRegularExpressions.email"
-                       ng-required="true">
+                       ng-required="true" existance-validator="getCheckEmailEndpoint(registerUser.email)">
             </div>
             <div class="password-container">
                 <input type="password" class="form-control" placeholder="Password"
@@ -43,11 +43,9 @@
                        ng-required="true">
             </div>
             <div class="confirm-password-container">
-
-                <!--TODO: add password match validation-->
                 <input type="password" class="form-control" placeholder="Confirm Password"
                        ng-model="registerUser.confirmPassword" ng-pattern="validationRegularExpressions.password"
-                       ng-required="true">
+                       ng-required="true" match-validator="registerUser.password">
             </div>
             <div class="submit-button-container">
                 <button type="submit" class="form-control btn btn-success">Register</button>

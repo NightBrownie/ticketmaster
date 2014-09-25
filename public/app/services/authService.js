@@ -11,16 +11,36 @@
                 username: '',
                 email: '',
                 role: accessLevels.userRoles.user
-            },
-            currentUserInfo = defaultUserInfo;
-
-            var loadUserInfo = function() {
-
             };
+        var currentUserInfo = defaultUserInfo;
 
-            var setDefaultUserInfo = function() {
-                currentUserInfo = defaultUserInfo;
+        var loadUserInfo = function() {
+
+        };
+
+        var setDefaultUserInfo = function() {
+            currentUserInfo = defaultUserInfo;
+        };
+
+        var setAuthToken = function(token) {
+            if ($window.sessionStorage && token) {
+                $window.sessionStorage.authToken = token;
             }
+        };
+
+        var getAuthToken = function() {
+            if ($window.sessionStorage && $window.sessionStorage.authToken) {
+                return $window.sessionStorage.authToken;
+            }
+
+            return undefined;
+        };
+
+        var clearAuthToken = function() {
+            if ($window.sessionStorage && $window.sessionStorage.authToken) {
+                $window.sessionStorage.authToken = undefined;
+            }
+        };
 
         return {
             login: function(userInfo) {
@@ -30,6 +50,9 @@
                 $http(endpoint)
                     .success(function(result) {
                         $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
+
+                        setAuthToken(result.token);
+
                         deferred.resolve(result);
                     })
                     .error(function(error) {
@@ -59,10 +82,7 @@
             },
 
             getToken: function() {
-
-            },
-            clearToken: function() {
-
+                return getAuthToken();
             },
 
             isAuthenticated: function() {

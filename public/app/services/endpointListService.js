@@ -17,6 +17,24 @@
                         method: 'POST',
                         data: data
                     };
+                },
+                checkUsername: function (username) {
+                    return {
+                        url: '/api/user/usernameallowed',
+                        method: 'POST',
+                        data: {
+                            value: username
+                        }
+                    }
+                },
+                checkEmail: function (email) {
+                    return {
+                        url: '/api/user/emailallowed',
+                        method: 'POST',
+                        data: {
+                            value: email
+                        }
+                    }
                 }
             };
         });

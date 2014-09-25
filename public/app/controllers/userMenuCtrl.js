@@ -8,5 +8,9 @@
             $scope.showLoginModal = function() {
                 $scope.isLoginModalShown = true;
             };
+
+            $scope.hideLoginModal = function() {
+                $scope.isLoginModalShown = false;
+            }
         }]);
 })(window);

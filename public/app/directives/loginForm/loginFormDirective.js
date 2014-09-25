@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('directives')
-        .controller('loginFormCtrl', ['$scope', 'authService', 'validationRegularExpressions',
-            function($scope, authService, validationRegularExpressions) {
+        .controller('loginFormCtrl', ['$scope', 'authService', 'validationRegularExpressions', 'endpointListService',
+            function($scope, authService, validationRegularExpressions, endpointListService) {
                 //tabs logic
                 $scope.activeTabName = 'signin';
                 $scope.activateTab = function(tabName) {
@@ -35,6 +35,8 @@
                                 $scope.loginForm.$setDirty(false);
                                 $scope.loginForm.$setPristine();
                                 $scope.isLoginFormBusy = false;
+
+                                $scope.operationSuccessfulCallback();
                             },
                             function(result) {
                                 $scope.loginUser.password = '';
@@ -68,18 +70,31 @@
                                 $scope.registerForm.$setDirty(false);
                                 $scope.registerForm.$setPristine();
                                 $scope.isRegisterFormBusy = false;
+
+                                $scope.operationSuccessfulCallback();
                             },
                             function(result) {
                                 $scope.isRegisterFormBusy = false;
                             });
                     }
                 };
+
+                $scope.getCheckEmailEndpoint = function(email) {
+                    return endpointListService.checkEmail(email);
+                };
+
+                $scope.getCheckUsernameEndpoint = function(username) {
+                    return endpointListService.checkUsername(username);
+                };
             }])
         .directive('loginForm', [function() {
             return {
                 restrict: 'EA',
                 templateUrl: '/app/directives/loginForm/views/loginForm.html',
-                controller: 'loginFormCtrl'
+                controller: 'loginFormCtrl',
+                scope: {
+                    operationSuccessfulCallback: '&'
+                }
             };
         }]);
 })(window);

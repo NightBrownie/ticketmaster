@@ -84,7 +84,7 @@
     });
 
     router.post('/user/usernameallowed', function(req, res) {
-        var username = req.body.username || '';
+        var username = req.body.value || '';
 
         if (username === '') {
             return res.send(400);
@@ -95,16 +95,16 @@
                 return res.send(500);
             }
 
-            if(!user) {
-                return res.send({ result: true });
+            if (!user) {
+                return res.send(200);
             } else {
-                return res.send({ result: false });
+                return res.send(400);
             }
         });
     });
 
     router.post('/user/emailallowed', function(req, res) {
-        var email = req.body.email || '';
+        var email = req.body.value || '';
 
         if (email === '') {
             return res.send(400);
@@ -116,9 +116,9 @@
             }
 
             if (!user) {
-                return res.send({ result: true });
+                return res.send(200);
             } else {
-                return res.send({ result: false });
+                return res.send(400);
             }
         });
     });
