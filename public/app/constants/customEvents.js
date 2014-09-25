@@ -6,6 +6,8 @@
            authEvents: {
                loginSuccess: 'auth-login-success',
                loginFailed: 'auth-login-failed',
+               registerSuccess: 'auth-register-success',
+               registerFailed: 'auth-register-failed',
                logoutSuccess: 'auth-logout-success',
                sessionTimeout: 'auth-session-timeout',
                notAuthenticated: 'auth-not-authenticated',

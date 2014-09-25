@@ -14,9 +14,17 @@
             },
             currentUserInfo = defaultUserInfo;
 
+            var loadUserInfo = function() {
+
+            };
+
+            var setDefaultUserInfo = function() {
+                currentUserInfo = defaultUserInfo;
+            }
+
         return {
             login: function(userInfo) {
-                var deferred = $q.deferred();
+                var deferred = $q.defer();
 
                 var endpoint = endpointListService.loginUser(userInfo);
                 $http(endpoint)
@@ -24,16 +32,27 @@
                         $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
                         deferred.resolve(result);
                     })
-                    .fail(function(error) {
+                    .error(function(error) {
                         $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
                         deferred.reject(error);
                     });
 
-                return deferred;
+                return deferred.promise;
             },
             register: function(userInfo) {
+                var deferred = $q.defer();
                 var endpoint = endpointListService.registerUser(userInfo);
-                return $http(endpoint);
+                $http(endpoint)
+                    .success(function(result) {
+                        $rootScope.$broadcast(customEvents.authEvents.registerSuccess);
+                        deferred.resolve(result);
+                    })
+                    .error(function(error) {
+                        $rootScope.$broadcast(customEvents.authEvents.registerFailed);
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
             },
             logout: function() {
 
@@ -55,9 +74,6 @@
 
             getUserInfo: function() {
                 return currentUserInfo;
-            },
-            setDefaultUserInfo: function() {
-                currentUserInfo = defaultUserInfo;
             }
         };
     }]);

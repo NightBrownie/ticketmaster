@@ -1,0 +1,70 @@
+.login-form-container {
+  min-width: @signInFormMinWidth;
+
+  .login-register-tab-container {
+    .nav.nav-tabs {
+      li {
+        cursor: default;
+      }
+
+      li:not(.active) {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .login-tab,
+  .register-tab {
+    position: relative;
+
+    padding: 10px;
+
+    border-left: 1px solid @primaryColor4;
+    border-right: 1px solid @primaryColor4;
+    border-bottom: 1px solid @primaryColor4;
+
+    .border-radiuses(0, 3px, 3px, 0);
+
+    .login-form,
+    .register-form {
+      & > div {
+        padding-bottom: 10px;
+
+        .transition(border-color .25s ease, box-shadow .25s ease;);
+
+        &.submit-button-container {
+          padding-bottom: 0;
+
+          button {
+            .transition(border-color .25s ease, background-color .25s ease, box-shadow .25s ease;);
+            outline: 0;
+
+            &:focus {
+              .box-shadow(0 0 8px @validationColor2)
+            }
+          }
+        }
+      }
+
+      &.ng-dirty.ng-invalid {
+        & > div {
+          input.ng-dirty {
+            &.ng-invalid:not(:focus) {
+              border-color: @validationColor1;
+              .box-shadow(0 0 8px @validationColor1;);
+            }
+          }
+
+          &.submit-button-container button {
+            border-color: @validationColor1;
+            background-color: @validationColor1;
+
+            &:focus {
+              .box-shadow(none);
+            }
+          }
+        }
+      }
+    }
+  }
+}

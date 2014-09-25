@@ -3,8 +3,9 @@
 
     angular.module('constants')
         .constant('validationRegularExpressions', {
-                username: /^[a-z0-9_-]{6,16}$/,
-                password: /^[a-z0-9_-]{6,18}$/,
-                email: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+                username: /^[A-Za-z0-9_-]{3,16}$/i,
+                loginUsername: /(^[A-Za-z0-9_-]{3,16}$)|(^([A-Za-z0-9_\.-]+)@([\da-z\.-]+)\.([A-Za-z\.]{2,6})$)/,
+                password: /^[A-Za-z0-9_-]{6,18}$/i,
+                email: /^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/i
             });
 })(window);
