@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('directives')
-        .controller('loginFormCtrl', ['$scope', '$http', 'authService', 'validationRegularExpressions',
-            function($scope, $http, authService, validationRegularExpressions) {
+        .controller('loginFormCtrl', ['$scope', 'authService', 'validationRegularExpressions',
+            function($scope, authService, validationRegularExpressions) {
                 //tabs logic
                 $scope.activeTabName = 'signin';
                 $scope.activateTab = function(tabName) {

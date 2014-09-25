@@ -12,7 +12,7 @@
         var username = req.body.username || '';
         var password = req.body.password || '';
 
-        if (username == '' || password == '') {
+        if (username === '' || password === '') {
             return res.send(400);
         }
 
