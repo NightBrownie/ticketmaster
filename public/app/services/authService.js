@@ -2,20 +2,27 @@
 	'use strict';
 
 	angular.module('services')
-	.factory('authService', ['$q', '$window', 'accessLevels', function($q, $window, accessLevels) {
+	.factory('authService', ['$q', '$window', 'accessLevels', 'endpointListService',
+        function($q, $window, accessLevels, endpointListService) {
         //use $window.sessionStorage to store user token
 
         var defaultUserInfo = {
 
         },
-            currentUserInfo = defaultUsreInfo;
+            currentUserInfo = defaultUserInfo;
 
         return {
             login: function(username, password) {
-
+                var endpoint = endpointListService.loginUser(
+                    {
+                        username: username,
+                        password: password
+                    });
+                return $http(endpoint);
             },
             register: function(userInfo) {
-
+                var endpoint = endpointListService.registerUser(userInfo);
+                return $http(endpoint);
             },
             logout: function() {
 

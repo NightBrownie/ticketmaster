@@ -9,10 +9,14 @@
     <div class="content-tab login-tab" ng-show="isActiveTab('signin')">
         <form class="login-form" ng-submit="loginSubmit(loginUser)">
             <div class="username-container">
-                <input type="text" class="form-control" placeholder="Username/Email" ng-model="loginUser.username">
+                <input type="text" class="form-control" placeholder="Username/Email"
+                       ng-model="loginUser.username" ng-pattern="validationRegularExpressions.username"
+                       ng-required="">
             </div>
             <div class="password-container">
-                <input type="password" class="form-control" placeholder="Password" ng-model="loginUser.password">
+                <input type="password" class="form-control" placeholder="Password"
+                       ng-model="loginUser.password" ng-pattern="validationRegularExpressions.password"
+                       ng-required="">
             </div>
             <div class="submit-button-container">
                 <button type="submit" class="form-control btn btn-success">Sign In</button>
@@ -23,16 +27,25 @@
     <div class="content-tab register-tab" ng-show="isActiveTab('register')">
         <form class="register-form" ng-submit="registerSubmit(registerUser)">
             <div class="username-container">
-                <input type="text" class="form-control" placeholder="Username" ng-model="registerUser.username">
+                <input type="text" class="form-control" placeholder="Username"
+                       ng-model="registerUser.username" ng-pattern="validationRegularExpressions.username"
+                       ng-required="">
             </div>
             <div class="email-container">
-                <input type="email" class="form-control" placeholder="Email" ng-model="registerUser.email">
+                <input type="email" class="form-control" placeholder="Email"
+                       ng-model="registerUser.email" ng-pattern="validationRegularExpressions.email"
+                       ng-required="">
             </div>
             <div class="password-container">
-                <input type="password" class="form-control" placeholder="Password" ng-model="registerUser.password">
+                <input type="password" class="form-control" placeholder="Password"
+                       ng-model="registerUser.password" ng-pattern="validationRegularExpressions.password"
+                       ng-required="">
             </div>
             <div class="confirm-password-container">
-                <input type="password" class="form-control" placeholder="Confirm Password" ng-model="registerUser.confirmPassword">
+                //add password match validation
+                <input type="password" class="form-control" placeholder="Confirm Password"
+                       ng-model="registerUser.confirmPassword" ng-pattern="validationRegularExpressions.password"
+                       ng-required="">
             </div>
             <div class="submit-button-container">
                 <button type="submit" class="form-control btn btn-success">Register</button>
