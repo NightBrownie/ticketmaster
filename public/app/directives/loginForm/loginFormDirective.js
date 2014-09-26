@@ -63,7 +63,7 @@
                         authService.register(user)
                             .then(function(result) {
                                 //then just try to login with new user
-                                authService.login(user);
+                                authService.login({username: user.username, password: user.password});
 
                                 $scope.registerUser.username = '';
                                 $scope.registerUser.email = '';
