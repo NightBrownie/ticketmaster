@@ -62,6 +62,9 @@
                     if ($scope.registerForm.$valid) {
                         authService.register(user)
                             .then(function(result) {
+                                //then just try to login with new user
+                                authService.login(user);
+
                                 $scope.registerUser.username = '';
                                 $scope.registerUser.email = '';
                                 $scope.registerUser.password = '';

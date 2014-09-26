@@ -102,8 +102,7 @@
                 return res.send(500);
             }
 
-
-            return res.json(getLoggedInUserResponse(user));
+            return res.send(200);
         });
     });
 
