@@ -8,6 +8,15 @@
 
     var UserDAO = require('../models/user');
 
+    var getLoggedInUserResponse = function(user) {
+        var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: 60 });
+
+        return {
+            token: token,
+            userInfo: user
+        };
+    };
+
     router.post('/user/login', function(req, res) {
         var username = req.body.username || '';
         var password = req.body.password || '';
@@ -16,46 +25,60 @@
             return res.send(400);
         }
 
-        UserDAO.findOne({username: username}, {_id: 0}, function (err, user) {
-            if (err) {
-                console.log(err);
-                return res.send(500);
-            } else {
-                if (!user) {
-                    UserDAO.findOne({email: username}, {_id: 0}, function(err, user) {
-                        if (err) {
-                            return res.send(500);
-                        } else {
-                            if (user) {
-                                user.comparePassword(password, function (isMatch) {
-                                    if (!isMatch) {
-                                        console.log("Attempt failed to login with email " + user.username);
+        UserDAO.findOne(
+            {
+                username: username
+            },
+            {
+                _id: 0,
+                password: 0,
+                __v: 0
+            },
+            function (err, user) {
+                if (err) {
+                    console.log(err);
+                    return res.send(500);
+                } else {
+                    if (!user) {
+                        UserDAO.findOne(
+                            {
+                                email: username
+                            },
+                            {
+                                _id: 0,
+                                password: 0,
+                                __v: 0
+                            },
+                            function(err, user) {
+                                if (err) {
+                                    return res.send(500);
+                                } else {
+                                    if (user) {
+                                        user.comparePassword(password, function (isMatch) {
+                                            if (!isMatch) {
+                                                console.log("Attempt failed to login with email " + user.username);
+                                                return res.send(401);
+                                            }
+
+                                            return res.json(getLoggedInUserResponse(user));
+                                        });
+                                    } else {
                                         return res.send(401);
                                     }
-
-                                    var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: 60 });
-
-                                    return res.json({token: token});
-                                });
-                            } else {
+                                }
+                        });
+                    } else {
+                        user.comparePassword(password, function (isMatch) {
+                            if (!isMatch) {
+                                console.log("Attempt failed to login with username " + user.username);
                                 return res.send(401);
                             }
-                        }
-                    });
-                } else {
-                    user.comparePassword(password, function (isMatch) {
-                        if (!isMatch) {
-                            console.log("Attempt failed to login with username " + user.username);
-                            return res.send(401);
-                        }
 
-                        var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: 60 });
-
-                        return res.json({token: token});
-                    });
+                            return res.json(getLoggedInUserResponse(user));
+                        });
+                    }
                 }
-            }
-        });
+            });
     });
 
     router.post('/user/register', function(req, res) {
@@ -79,7 +102,8 @@
                 return res.send(500);
             }
 
-            return res.send(200);
+
+            return res.json(getLoggedInUserResponse(user));
         });
     });
 

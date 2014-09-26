@@ -12,31 +12,24 @@
                 link: function(scope, element, attrs, ctrl) {
                     var previousValue = undefined;
 
-                    scope.$watch(function() {
-                            ctrl.$parsers.push(function (viewValue) {
-                                if (viewValue && viewValue !== previousValue) {
-                                    previousValue = viewValue;
+                    ctrl.$parsers.push(function (viewValue) {
+                        if (viewValue && viewValue !== previousValue) {
+                            previousValue = viewValue;
 
-                                    var endpoint = scope.existanceValidator();
-                                    endpoint.data.value = viewValue;
+                            var endpoint = scope.existanceValidator();
+                            endpoint.data.value = viewValue;
 
-                                    $http(endpoint)
-                                        .success(function (result) {
-                                            ctrl.$setValidity('existance', true);
-                                        })
-                                        .error(function (error, status) {
-                                            ctrl.$setValidity('existance', false);
-                                        });
+                            $http(endpoint)
+                                .success(function (result) {
+                                    ctrl.$setValidity('existance', true);
+                                })
+                                .error(function (error, status) {
+                                    ctrl.$setValidity('existance', false);
+                                });
+                        }
 
-                                    return viewValue;
-                                }
-                            });
-
-                            return false;
-                        },
-                        function(currentValue) {
-                            //listener is not used because we have to call server and set new value in promise callback
-                        });
+                        return viewValue;
+                    });
                 }
             };
         }]);
