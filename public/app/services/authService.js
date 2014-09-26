@@ -5,96 +5,103 @@
 	.factory('authService', ['$q', '$window', '$http', '$rootScope', 'accessLevels', 'endpointListService',
              'customEvents',
         function($q, $window, $http, $rootScope, accessLevels, endpointListService, customEvents) {
-        //use $window.sessionStorage to store user token
+            var currentUserInfo = setDefaultUserInfo();
 
-        var defaultUserInfo = {
-                username: '',
-                email: '',
-                role: accessLevels.userRoles.user
+            var getDefaultUserInfo = function() {
+                return {
+                    username: '',
+                    email: '',
+                    role: accessLevels.userRoles.user
+                };
             };
-        var currentUserInfo = defaultUserInfo;
 
-        var loadUserInfo = function() {
+            var setUserInfo = function(userInfo) {
+                currentUserInfo = userInfo;
+            };
 
-        };
+            var setDefaultUserInfo = function() {
+                setUserInfo(getDefaultUserInfo());
+            };
 
-        var setDefaultUserInfo = function() {
-            currentUserInfo = defaultUserInfo;
-        };
+            var loadUserInfo = function() {
+                //call api method
+            };
 
-        var setAuthToken = function(token) {
-            if ($window.sessionStorage && token) {
-                $window.sessionStorage.authToken = token;
-            }
-        };
+            var setAuthToken = function(token) {
+                if ($window.sessionStorage && token) {
+                    $window.sessionStorage.authToken = token;
+                }
+            };
 
-        var getAuthToken = function() {
-            if ($window.sessionStorage && $window.sessionStorage.authToken) {
-                return $window.sessionStorage.authToken;
-            }
+            var getAuthToken = function() {
+                if ($window.sessionStorage && $window.sessionStorage.authToken) {
+                    return $window.sessionStorage.authToken;
+                }
 
-            return undefined;
-        };
+                return undefined;
+            };
 
-        var clearAuthToken = function() {
-            if ($window.sessionStorage && $window.sessionStorage.authToken) {
-                $window.sessionStorage.authToken = undefined;
-            }
-        };
+            var clearAuthToken = function() {
+                if ($window.sessionStorage && $window.sessionStorage.authToken) {
+                    $window.sessionStorage.authToken = undefined;
+                }
+            };
 
-        return {
-            login: function(userInfo) {
-                var deferred = $q.defer();
+            return {
+                login: function(userInfo) {
+                    var deferred = $q.defer();
 
-                var endpoint = endpointListService.loginUser(userInfo);
-                $http(endpoint)
-                    .success(function(result) {
-                        $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
+                    var endpoint = endpointListService.loginUser(userInfo);
+                    $http(endpoint)
+                        .success(function(result) {
+                            $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
 
-                        setAuthToken(result.token);
+                            setAuthToken(result.token);
 
-                        deferred.resolve(result);
-                    })
-                    .error(function(error) {
-                        $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
-                        deferred.reject(error);
-                    });
 
-                return deferred.promise;
-            },
-            register: function(userInfo) {
-                var deferred = $q.defer();
-                var endpoint = endpointListService.registerUser(userInfo);
-                $http(endpoint)
-                    .success(function(result) {
-                        $rootScope.$broadcast(customEvents.authEvents.registerSuccess);
-                        deferred.resolve(result);
-                    })
-                    .error(function(error) {
-                        $rootScope.$broadcast(customEvents.authEvents.registerFailed);
-                        deferred.reject(error);
-                    });
+                            deferred.resolve(result);
+                        })
+                        .error(function(error) {
+                            $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
+                            deferred.reject(error);
+                        });
 
-                return deferred.promise;
-            },
-            logout: function() {
+                    return deferred.promise;
+                },
+                register: function(userInfo) {
+                    var deferred = $q.defer();
+                    var endpoint = endpointListService.registerUser(userInfo);
+                    $http(endpoint)
+                        .success(function(result) {
+                            $rootScope.$broadcast(customEvents.authEvents.registerSuccess);
+                            deferred.resolve(result);
+                        })
+                        .error(function(error) {
+                            $rootScope.$broadcast(customEvents.authEvents.registerFailed);
+                            deferred.reject(error);
+                        });
 
-            },
+                    return deferred.promise;
+                },
+                logout: function() {
+                    clearAuthToken();
+                    setDefaultUserInfo();
+                },
 
-            getToken: function() {
-                return getAuthToken();
-            },
+                getToken: function() {
+                    return getAuthToken();
+                },
 
-            isAuthenticated: function() {
-                return false;
-            },
-            isAuthorized: function(accessLevel) {
-                return false;
-            },
+                isAuthenticated: function() {
+                    return ;
+                },
+                isAuthorized: function(accessLevel) {
+                    return false;
+                },
 
-            getUserInfo: function() {
-                return currentUserInfo;
-            }
-        };
+                getUserInfo: function() {
+                    return currentUserInfo;
+                }
+            };
     }]);
 })(window);
