@@ -9,7 +9,8 @@
             keyPhrase: 'test key phrase'
         },
         jwt: {
-            keyPhrase: 'test key phrase'
+            keyPhrase: 'test key phrase',
+            expiresInMins: 60
         }
     };
 })(module);

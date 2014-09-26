@@ -5,11 +5,13 @@
 	.factory('authService', ['$q', '$window', '$http', '$rootScope', 'accessLevels', 'endpointListService',
              'customEvents',
         function($q, $window, $http, $rootScope, accessLevels, endpointListService, customEvents) {
+            var currentUserInfo;
+
             var getDefaultUserInfo = function() {
                 return {
                     username: '',
                     email: '',
-                    role: accessLevels.userRoles.user
+                    role: accessLevels.userRoles.anonymous
                 };
             };
 
@@ -21,8 +23,14 @@
                 setUserInfo(getDefaultUserInfo());
             };
 
+            var getCurrentUserInfo = function() {
+                return currentUserInfo
+            };
+
             var loadUserInfo = function() {
-                //call api method
+                if (isCurrentUserAuthenticated()) {
+                    //TODO: call api method
+                }
             };
 
             var setAuthToken = function(token) {
@@ -41,11 +49,24 @@
 
             var clearAuthToken = function() {
                 if ($window.sessionStorage && $window.sessionStorage.authToken) {
-                    $window.sessionStorage.authToken = undefined;
+                    delete $window.sessionStorage.authToken;
                 }
             };
 
-            var currentUserInfo = getDefaultUserInfo();
+            var isCurrentUserAuthenticated = function() {
+                return getAuthToken() !== undefined;
+            };
+
+            var isCurrentUserAuthorized = function(accessLevel) {
+                return typeof accessLevel === 'number'
+                    && (currentUserInfo.role & accessLevel);
+            };
+
+            setDefaultUserInfo();
+
+            $rootScope.$on(customEvents.authEvents.userInfoNotFound, function() {
+                loadUserInfo();
+            });
 
             return {
                 login: function(userInfo) {
@@ -57,7 +78,7 @@
                             $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
 
                             setAuthToken(result.token);
-
+                            setUserInfo(result.userInfo);
 
                             deferred.resolve(result);
                         })
@@ -84,23 +105,27 @@
                     return deferred.promise;
                 },
                 logout: function() {
-                    clearAuthToken();
-                    setDefaultUserInfo();
+                    if (isCurrentUserAuthenticated()) {
+                        clearAuthToken();
+                        setDefaultUserInfo();
+
+                        $rootScope.$broadcast(customEvents.authEvents.logoutSuccess);
+                    }
                 },
 
-                getToken: function() {
+                getAuthToken: function() {
                     return getAuthToken();
                 },
 
                 isAuthenticated: function() {
-                    return ;
+                    return isCurrentUserAuthenticated();
                 },
                 isAuthorized: function(accessLevel) {
-                    return false;
+                    return isCurrentUserAuthorized(accessLevel);
                 },
 
                 getUserInfo: function() {
-                    return currentUserInfo;
+                    return getCurrentUserInfo();
                 }
             };
     }]);

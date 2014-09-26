@@ -11,7 +11,8 @@
                logoutSuccess: 'auth-logout-success',
                sessionTimeout: 'auth-session-timeout',
                notAuthenticated: 'auth-not-authenticated',
-               notAuthorized: 'auth-not-authorized'
+               notAuthorized: 'auth-not-authorized',
+               userInfoNotFound: 'auth-user-info-not-found'
            }
         });
 })(window);

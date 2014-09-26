@@ -9,7 +9,7 @@
     var UserDAO = require('../models/user');
 
     var getLoggedInUserResponse = function(user) {
-        var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: 60 });
+        var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: secret.jwt.expiresInMins });
 
         return {
             token: token,

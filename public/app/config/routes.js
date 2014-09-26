@@ -69,12 +69,24 @@
 
                 $locationProvider.html5Mode(true);
             }])
-        .run(['$rootScope', '$location', 'routingParameters', function($rootScope, $location, routingParameters) {
-            $rootScope.$on('$stateChangeStart', function(event, nextState, nextParams, prevState, prevParams) {
-                //check authentication ang authorization
+        .run(['$rootScope', '$location', 'routingParameters', '$state', '$stateParams', 'customEvents',
+            function($rootScope, $location, routingParameters, $state, $stateParams, customEvents) {
+                $rootScope.$on('$stateChangeStart', function(event, nextState, nextParams, prevState, prevParams) {
+                    //check authentication ang authorization
 
-                //set page title
-                $rootScope.pageTitle = nextState.pageTitle || routingParameters.defaultPageTitle;
-            });
-        }]);
+                    //set page title
+                    $rootScope.pageTitle = nextState.pageTitle || routingParameters.defaultPageTitle;
+                });
+
+                //logout success
+                $rootScope.$on(customEvents.authEvents.logoutSuccess, function() {
+                    $state.transitionTo($state.current, $stateParams, {
+                        reload: true,
+                        inherit: true,
+                        notify: true
+                    })
+                });
+
+                //TODO: check if current user is not presented but the token is, load user
+            }]);
 })(window);

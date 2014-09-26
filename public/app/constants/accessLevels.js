@@ -15,6 +15,7 @@
             anonymous: userRoles.anonymous, //001
 
             public: userRoles.anonymous | userRoles.user | userRoles.administrator, //111
+            authenticated: userRoles.user | userRoles.administrator,
             user: userRoles.user, //010
             administrator: userRoles.administrator //100
         }
