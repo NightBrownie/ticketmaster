@@ -68,5 +68,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//last time exception handler, the email to dev team could be send here
+process.on('uncaughtException', function(err) {
+    console.log('An uncaught exception was handled, error: ' + JSON.stringify(err));
+    process.exit(1);
+});
 
 module.exports = app;
