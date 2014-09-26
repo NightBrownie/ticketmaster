@@ -8,13 +8,24 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
+//config values
+var secret = require('./config/secret');
+
+//root route
 var routes = require('./routes/index');
-
 //api controllers
 var userRoutes = require('./routes/user');
 
 var app = express();
+
+//set session engine
+//enable if will store token for user session stored in mongo/redis
+/*app.use(session({
+    secret: secret.session.keyPhrase,
+    cookie: { secure: true }
+}));*/
 
 //set app template engine function and file extension
 app.engine('html', swig.renderFile);

@@ -75,15 +75,14 @@
                     var endpoint = endpointListService.loginUser(userInfo);
                     $http(endpoint)
                         .success(function(result) {
-                            $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
-
                             setAuthToken(result.token);
                             setUserInfo(result.userInfo);
 
+                            $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
                             deferred.resolve(result);
                         })
                         .error(function(error) {
-                            $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
+                            $rootScope.$broadcast(customEvents.authEvents.loginFailed);
                             deferred.reject(error);
                         });
 
