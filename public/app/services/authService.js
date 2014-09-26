@@ -5,8 +5,6 @@
 	.factory('authService', ['$q', '$window', '$http', '$rootScope', 'accessLevels', 'endpointListService',
              'customEvents',
         function($q, $window, $http, $rootScope, accessLevels, endpointListService, customEvents) {
-            var currentUserInfo = setDefaultUserInfo();
-
             var getDefaultUserInfo = function() {
                 return {
                     username: '',
@@ -46,6 +44,8 @@
                     $window.sessionStorage.authToken = undefined;
                 }
             };
+
+            var currentUserInfo = getDefaultUserInfo();
 
             return {
                 login: function(userInfo) {
