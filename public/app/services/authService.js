@@ -17,6 +17,9 @@
 
             var setUserInfo = function(userInfo) {
                 currentUserInfo = userInfo;
+
+                //set Username to root scope
+                $rootScope.currentUserInfo = currentUserInfo;
             };
 
             var setDefaultUserInfo = function() {

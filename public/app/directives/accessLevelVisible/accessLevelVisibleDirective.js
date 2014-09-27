@@ -20,15 +20,10 @@
                             }
                         };
 
-                        scope.$watch('accessLevelVisible', function(viewValue) {
+                        $rootScope.$watch('currentUserInfo', function(viewValue) {
                             updateElementVisibility();
                             return viewValue;
                         });
-
-                        $rootScope.$on(customEvents.authEvents.loginSuccess, updateElementVisibility);
-                        $rootScope.$on(customEvents.authEvents.logoutSuccess, updateElementVisibility);
-                        $rootScope.$on(customEvents.authEvents.sessionTimeout, updateElementVisibility);
-                        $rootScope.$on(customEvents.authEvents.userInfoNotFound, updateElementVisibility);
                     }
                 };
             }]);

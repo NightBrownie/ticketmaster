@@ -12,7 +12,8 @@
                sessionTimeout: 'auth-session-timeout',
                notAuthenticated: 'auth-not-authenticated',
                notAuthorized: 'auth-not-authorized',
-               userInfoNotFound: 'auth-user-info-not-found'
+               userInfoNotFound: 'auth-user-info-not-found',
+               userInfoUpdated: 'auth-user-info-updated'
            }
         });
 })(window);
