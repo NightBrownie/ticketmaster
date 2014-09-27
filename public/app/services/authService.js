@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('services')
-	.factory('authService', ['$q', '$window', '$http', '$rootScope', 'accessLevels', 'endpointListService',
+	.factory('authService', ['$q', 'authTokenService', '$http', '$rootScope', 'accessLevels', 'endpointListService',
              'customEvents',
-        function($q, $window, $http, $rootScope, accessLevels, endpointListService, customEvents) {
+        function($q, authTokenService, $http, $rootScope, accessLevels, endpointListService, customEvents) {
             var currentUserInfo;
 
             var getDefaultUserInfo = function() {
@@ -29,32 +29,18 @@
 
             var loadUserInfo = function() {
                 if (isCurrentUserAuthenticated()) {
-                    //TODO: call api method
-                }
-            };
-
-            var setAuthToken = function(token) {
-                if ($window.sessionStorage && token) {
-                    $window.sessionStorage.authToken = token;
-                }
-            };
-
-            var getAuthToken = function() {
-                if ($window.sessionStorage && $window.sessionStorage.authToken) {
-                    return $window.sessionStorage.authToken;
-                }
-
-                return undefined;
-            };
-
-            var clearAuthToken = function() {
-                if ($window.sessionStorage && $window.sessionStorage.authToken) {
-                    delete $window.sessionStorage.authToken;
+                    $http(endpointListService.getCurrentUserInfo())
+                        .success(function(data, status) {
+                            setUserInfo(data);
+                        })
+                        .error(function(error, status) {
+                            setDefaultUserInfo();
+                        });
                 }
             };
 
             var isCurrentUserAuthenticated = function() {
-                return getAuthToken() !== undefined;
+                return authTokenService.isCurrentUserAuthenticated();
             };
 
             var isCurrentUserAuthorized = function(accessLevel) {
@@ -68,6 +54,10 @@
                 loadUserInfo();
             });
 
+            $rootScope.$on(customEvents.authEvents.sessionTimeout, function() {
+                setDefaultUserInfo();
+            });
+
             return {
                 login: function(userInfo) {
                     var deferred = $q.defer();
@@ -75,7 +65,7 @@
                     var endpoint = endpointListService.loginUser(userInfo);
                     $http(endpoint)
                         .success(function(result) {
-                            setAuthToken(result.token);
+                            authTokenService.setAuthToken(result.token);
                             setUserInfo(result.userInfo);
 
                             $rootScope.$broadcast(customEvents.authEvents.loginSuccess);
@@ -105,16 +95,12 @@
                 },
                 logout: function() {
                     if (isCurrentUserAuthenticated()) {
-                        clearAuthToken();
                         setDefaultUserInfo();
 
                         $rootScope.$broadcast(customEvents.authEvents.logoutSuccess);
                     }
                 },
 
-                getAuthToken: function() {
-                    return getAuthToken();
-                },
                 isAuthorized: function(accessLevel) {
                     return isCurrentUserAuthorized(accessLevel);
                 },

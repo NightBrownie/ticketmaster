@@ -2,8 +2,11 @@
     'use strict';
 
     angular.module('ticket-master')
-        .config(['$interpolateProvider', function($interpolateProvider) {
-            $interpolateProvider.startSymbol('[[');
-            $interpolateProvider.endSymbol(']]');
-        }]);
+        .config(['$interpolateProvider', '$httpProvider',
+            function($interpolateProvider, $httpProvider) {
+                $interpolateProvider.startSymbol('[[');
+                $interpolateProvider.endSymbol(']]');
+
+                $httpProvider.interceptors.push('tokenInterceptor');
+            }]);
 })(window);

@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('ticket-master')
-        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters',
-            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters) {
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters', 'accessLevels',
+            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters, accessLevels) {
                 //default route
                 $urlRouterProvider.otherwise(routingParameters.defaultRoute);
 
@@ -73,15 +73,21 @@
                             controller: 'adminPanelCtrl'
                         }
                     },
-                    pageTitle: 'Admin panel | Add new films or theaters, manage the old ones'
+                    pageTitle: 'Admin panel | Add new films or theaters, manage the old ones',
+                    accessLevel: accessLevels.administrator
                 });
 
                 $locationProvider.html5Mode(true);
             }])
-        .run(['$rootScope', '$location', 'routingParameters', '$state', '$stateParams', 'customEvents',
-            function($rootScope, $location, routingParameters, $state, $stateParams, customEvents) {
+        .run(['$rootScope', '$location', 'routingParameters', '$state', '$stateParams', 'customEvents', 'authService',
+            'accessLevels',
+            function($rootScope, $location, routingParameters, $state, $stateParams, customEvents, authService,
+                     accessLevels) {
                 $rootScope.$on('$stateChangeStart', function(event, nextState, nextParams, prevState, prevParams) {
                     //check authentication ang authorization
+                    if (nextState.accessLevel && !authService.isAuthorized(nextState.accessLevel)) {
+                        $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                    }
 
                     //set page title
                     $rootScope.pageTitle = nextState.pageTitle || routingParameters.defaultPageTitle;
@@ -96,6 +102,10 @@
                     })
                 });
 
-                //TODO: check if current user is not presented but the token is, load user
+                $rootScope.$on(customEvents.authEvents.notAuthorized, function() {
+                    $location.path(routingParameters.defaultRoute);
+                });
+
+                $rootScope.$broadcast(customEvents.authEvents.userInfoNotFound);
             }]);
 })(window);

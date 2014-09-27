@@ -18,6 +18,12 @@
                         data: data
                     };
                 },
+                getCurrentUserInfo: function () {
+                    return {
+                        url: '/api/user/currentuserinfo',
+                        method: 'GET'
+                    }
+                },
                 checkUsername: function (username) {
                     return {
                         url: '/api/user/usernameallowed',

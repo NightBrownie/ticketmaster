@@ -3,8 +3,11 @@
 
     var express = require('express');
     var router = express.Router();
-    var jwt = require('jsonwebtoken');
+
     var secret = require('../config/secret');
+    var jwt = require('jsonwebtoken');
+
+    var authenticationChecker = require('../modules/authentication/authenticationChecker');
 
     var UserDAO = require('../models/user');
 
@@ -147,12 +150,9 @@
     });
 
     //get userinfo by username
-    router.get('/user/userinfo', function(req, res) {
-        var username = req.query.username || '';
-
-        if (username === '') {
-            return res.send(400);
-        }
+    router.get('/user/currentuserinfo', authenticationChecker(), function(req, res) {
+        //load data from token
+        var username = req.user && req.user.username || '';
 
         UserDAO.findOne({
                 username: username
@@ -163,8 +163,12 @@
                 __v: 0
             },
             function(err, user) {
-                if (err || !user) {
+                if (err) {
                     return res.send(500);
+                }
+
+                if (!user) {
+                    return res.send(400);
                 }
 
                 res.json(user);
