@@ -1,95 +1,96 @@
 <!DOCTYPE html>
 <html ng-app="ticket-master">
-  <head>
-      <title>[[pageTitle]]</title>
-      <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
-      <link rel='stylesheet' type="text/css" href='/libs/bower_components/font-awesome/css/font-awesome.min.css' />
-  </head>
-  <body>
-      <header class="navbar navbar-default" role="navigation">
-          <div class="container container-fluid">
-              <div class="navbar-header">
-                  <div class="navbar-brand">
-                      Ticket Master
-                  </div>
-              </div>
+    <head>
+        <title>[[pageTitle]]</title>
+        <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
+        <link rel='stylesheet' type="text/css" href='/libs/bower_components/font-awesome/css/font-awesome.min.css' />
+    </head>
+    <body>
+        <header class="navbar navbar-default" role="navigation">
+            <div class="container container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-brand">
+                        Ticket Master
+                    </div>
+                </div>
 
-              <div class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav navbar-right">
-                      <li ui-sref-active="active">
-                          <a ui-sref="main.films">Films</a>
-                      </li>
-                      <li ui-sref-active="active">
-                          <a ui-sref="main.theaters">Theaters</a>
-                      </li>
-                      <li ui-sref-active="active">
-                          <a ui-sref="main.schedule">Schedule</a>
-                      </li>
-                      <li ui-sref-active="active">
-                          <a ui-sref="main.tickets">Buy tickets</a>
-                      </li>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ui-sref-active="active">
+                            <a ui-sref="main.films">Films</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="main.theaters">Theaters</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="main.schedule">Schedule</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="main.tickets">Buy tickets</a>
+                        </li>
 
-                      <li class="divider"></li>
+                        <li class="divider"></li>
 
-                      <li id="user-menu-container" ui-view="user-menu-view" class="nav navbar-nav">
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </header>
+                        <li id="user-menu-container" ui-view="user-menu-view" class="nav navbar-nav">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
 
-      <ui-view name="main-view">
-      </ui-view>
+        <ui-view name="main-view">
+        </ui-view>
 
-      <footer class="sticky-footer">
-          <div class="container footer-content-container">
-              TicketMaster © 2014 Nikita Klyushnikov
-          </div>
-      </footer>
+        <footer class="sticky-footer">
+            <div class="container footer-content-container">
+                TicketMaster © 2014 Nikita Klyushnikov
+            </div>
+        </footer>
 
-      {# Libraries generic #}
-      <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
-      <script type="text/javascript" src="/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        {# Libraries generic #}
+        <script type="text/javascript" src="/libs/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/libs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-      {# Libraries angular #}
-      <script type="text/javascript" src="/libs/bower_components/angular/angular.min.js"></script>
-      <script type="text/javascript" src="/libs/bower_components/angular-animate/angular-animate.min.js"></script>
-      <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.min.js"></script>
-      <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-      <script type="text/javascript" src="/libs/bower_components/ui-router/release/angular-ui-router.min.js"></script>
+        {# Libraries angular #}
+        <script type="text/javascript" src="/libs/bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/libs/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+        <script type="text/javascript" src="/libs/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+        <script type="text/javascript" src="/libs/bower_components/ui-router/release/angular-ui-router.min.js"></script>
 
-      {# Custom scripts #}
-      <script type="text/javascript" src="/scripts/stickyFooterAdjuster.js"></script>
+        {# Custom scripts #}
+        <script type="text/javascript" src="/scripts/stickyFooterAdjuster.js"></script>
 
-      {# Custom scripts app #}
-      <script type="text/javascript" src="/app/app.js"></script>
-      <script type="text/javascript" src="/app/config/index.js"></script>
-      <script type="text/javascript" src="/app/config/routes.js"></script>
+        {# Custom scripts app #}
+        <script type="text/javascript" src="/app/app.js"></script>
+        <script type="text/javascript" src="/app/config/index.js"></script>
+        <script type="text/javascript" src="/app/config/routes.js"></script>
 
-      <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
-      <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
-      <script type="text/javascript" src="/app/constants/validationRegularExpressions.js"></script>
-      <script type="text/javascript" src="/app/constants/customEvents.js"></script>
+        <script type="text/javascript" src="/app/constants/accessLevels.js"></script>
+        <script type="text/javascript" src="/app/constants/routingParameters.js"></script>
+        <script type="text/javascript" src="/app/constants/validationRegularExpressions.js"></script>
+        <script type="text/javascript" src="/app/constants/customEvents.js"></script>
 
-      <script type="text/javascript" src="/app/directives/directivesModule.js"></script>
-      <script type="text/javascript" src="/app/directives/loginForm/loginFormDirective.js"></script>
-      <script type="text/javascript" src="/app/directives/customModal/customModalDirective.js"></script>
-      <script type="text/javascript" src="/app/directives/customSpinner/customSpinnerDirective.js"></script>
-      <script type="text/javascript" src="/app/directives/matchValidator/matchValidatorDirective.js"></script>
-      <script type="text/javascript" src="/app/directives/existanceValidator/existanceValidatorDirective.js"></script>
-      <script type="text/javascript" src="/app/directives/accessLevelVisible/accessLevelVisibleDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/directivesModule.js"></script>
+        <script type="text/javascript" src="/app/directives/loginForm/loginFormDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/customModal/customModalDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/customSpinner/customSpinnerDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/matchValidator/matchValidatorDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/existanceValidator/existanceValidatorDirective.js"></script>
+        <script type="text/javascript" src="/app/directives/accessLevelVisible/accessLevelVisibleDirective.js"></script>
 
-      <script type="text/javascript" src="/app/services/servicesModule.js"></script>
-      <script type="text/javascript" src="/app/services/authService.js"></script>
-      <script type="text/javascript" src="/app/services/endpointListService.js"></script>
+        <script type="text/javascript" src="/app/services/servicesModule.js"></script>
+        <script type="text/javascript" src="/app/services/authService.js"></script>
+        <script type="text/javascript" src="/app/services/endpointListService.js"></script>
 
-      <script type="text/javascript" src="/app/controllers/mainCtrl.js"></script>
-      <script type="text/javascript" src="/app/controllers/userMenuCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/mainCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/userMenuCtrl.js"></script>
 
-      <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
-      <script type="text/javascript" src="/app/controllers/profileCtrl.js"></script>
-      <script type="text/javascript" src="/app/controllers/scheduleCtrl.js"></script>
-      <script type="text/javascript" src="/app/controllers/theatersCtrl.js"></script>
-      <script type="text/javascript" src="/app/controllers/ticketsCtrl.js"></script>
-  </body>
+        <script type="text/javascript" src="/app/controllers/filmsCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/profileCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/scheduleCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/theatersCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/ticketsCtrl.js"></script>
+        <script type="text/javascript" src="/app/controllers/adminPanelCtrl.js"></script>
+    </body>
 </html>

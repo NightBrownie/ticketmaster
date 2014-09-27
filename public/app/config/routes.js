@@ -65,7 +65,16 @@
                         }
                     },
                     pageTitle: 'Buy tickets | Choose best price at best time'
-                 });
+                }).state('main.adminPanel', {
+                    url: '/adminpanel',
+                    views: {
+                        'main-content-view': {
+                            templateUrl: '/app/views/adminPanel.html',
+                            controller: 'adminPanelCtrl'
+                        }
+                    },
+                    pageTitle: 'Admin panel | Add new films or theaters, manage the old ones'
+                });
 
                 $locationProvider.html5Mode(true);
             }])

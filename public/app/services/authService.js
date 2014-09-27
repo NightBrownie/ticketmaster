@@ -115,10 +115,6 @@
                 getAuthToken: function() {
                     return getAuthToken();
                 },
-
-                isAuthenticated: function() {
-                    return isCurrentUserAuthenticated();
-                },
                 isAuthorized: function(accessLevel) {
                     return isCurrentUserAuthorized(accessLevel);
                 },
