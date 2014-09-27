@@ -37,7 +37,8 @@
                             controller: 'profileCtrl'
                         }
                     },
-                    pageTitle: 'User Profile | Manage your account and get actual information'
+                    pageTitle: 'User Profile | Manage your account and get actual information',
+                    accessLevel: accessLevels.accessLevels.authenticated
                 }).state('main.schedule', {
                     url: '/schedule',
                     views: {
