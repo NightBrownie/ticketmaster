@@ -74,8 +74,8 @@
                         }
                     },
                     pageTitle: 'Admin panel | Add new films or theaters, manage the old ones',
-                    accessLevel: accessLevels.administrator
-                });
+                    accessLevel: accessLevels.accessLevels.administrator
+            });
 
                 $locationProvider.html5Mode(true);
             }])
