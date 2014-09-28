@@ -10,7 +10,7 @@
         },
         jwt: {
             keyPhrase: 'test key phrase',
-            expiresInMins: 1
+            expiresInMins: 60
         }
     };
 })(module);
