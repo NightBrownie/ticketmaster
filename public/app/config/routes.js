@@ -70,7 +70,7 @@
                     url: '/adminpanel',
                     views: {
                         'main-content-view': {
-                            templateUrl: '/app/views/adminPanel.html',
+                            templateUrl: '/app/views/adminPanel.html',6
                             controller: 'adminPanelCtrl'
                         }
                     },
