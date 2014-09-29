@@ -67,16 +67,76 @@
                     },
                     pageTitle: 'Buy tickets | Choose best price at best time'
                 }).state('main.adminPanel', {
-                    url: '/adminpanel',
+                    abstract: true,
                     views: {
                         'main-content-view': {
-                            templateUrl: '/app/views/adminPanel.html',
-                            controller: 'adminPanelCtrl'
+                            templateUrl: '/app/views/adminPanel.html'
+                        }
+                    }
+                }).state('main.adminPanel.films', {
+                    url: '/adminpanel/films',
+                    views: {
+                        'admin-panel-content-view': {
+
                         }
                     },
-                    pageTitle: 'Admin panel | Add new films or theaters, manage the old ones',
+                    pageTitle: 'Admin panel | Add new films, edit or delete the old ones',
                     accessLevel: accessLevels.accessLevels.administrator
-            });
+                }).state('main.adminPanel.film', {
+                    url: '/adminpanel/film/:id',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | Edit film data',
+                    accessLevel: accessLevels.accessLevels.administrator
+                }).state('main.adminPanel.theaters', {
+                    url: '/adminpanel/theaters',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | Add new theaters, edit or delete the old ones',
+                    accessLevel: accessLevels.accessLevels.administrator
+                }).state('main.adminPanel.theater', {
+                    url: '/adminpanel/theater/:id',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | Edit theater data',
+                    accessLevel: accessLevels.accessLevels.administrator
+                }).state('main.adminPanel.events', {
+                    url: '/adminpanel/events',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | Add new events, edit or delete the old ones',
+                    accessLevel: accessLevels.accessLevels.administrator
+                }).state('main.adminPanel.event', {
+                    url: '/adminpanel/event/:id',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | Edit event data',
+                    accessLevel: accessLevels.accessLevels.administrator
+                }).state('main.adminPanel.users', {
+                    url: '/adminpanel/users',
+                    views: {
+                        'admin-panel-content-view': {
+
+                        }
+                    },
+                    pageTitle: 'Admin panel | List or delete users',
+                    accessLevel: accessLevels.accessLevels.administrator
+                });
 
                 $locationProvider.html5Mode(true);
             }])
@@ -84,10 +144,15 @@
             'accessLevels',
             function($rootScope, $location, routingParameters, $state, $stateParams, customEvents, authService,
                      accessLevels) {
+                //TODO: reload page after user data is loaded
+                $rootScope.$broadcast(customEvents.authEvents.userInfoNotFound);
+
+                //TODO: probably replace with call of resolve method
                 $rootScope.$on('$stateChangeStart', function(event, nextState, nextParams, prevState, prevParams) {
                     //check authentication ang authorization
                     if (nextState.accessLevel && !authService.isAuthorized(nextState.accessLevel)) {
-                        $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                        //event.preventDefault();
+                        return $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
                     }
 
                     //set page title
@@ -104,9 +169,7 @@
                 });
 
                 $rootScope.$on(customEvents.authEvents.notAuthorized, function() {
-                    $location.path(routingParameters.defaultRoute);
+                    $state.go(routingParameters.defaultState);
                 });
-
-                $rootScope.$broadcast(customEvents.authEvents.userInfoNotFound);
             }]);
 })(window);

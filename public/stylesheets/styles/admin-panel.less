@@ -1,0 +1,81 @@
+.admin-panel-container {
+  width: 100%;
+  height: 100%;
+
+  padding: 15px 0;
+
+  overflow: hidden;
+
+  .menu {
+    height: 100%;
+
+    padding-right: @leftMenuPadding;
+
+    border-right: 1px solid @primaryColor2;
+
+    float: left;
+    min-width:  @adminPanelMenuMinWidth;
+
+    .menu-header {
+      height: @menuItemsHeight;
+      line-height: @menuItemsHeight;
+      text-align: center;
+
+      font-size: @menuHeaderFontSize;
+      text-transform: uppercase;
+    }
+
+    .menu-list {
+      & > li {
+        height: @menuItemsHeight;
+
+        margin: 0;
+
+        border-top: 1px solid @primaryColor2;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+
+        &:last-of-type {
+          border-bottom: 1px solid transparent;
+        }
+
+        &.active,
+        &:hover {
+          border-left: 1px solid @primaryColor2;
+          border-right: 1px solid @primaryColor2;
+
+          &:last-of-type {
+            border-bottom: 1px solid @primaryColor2;
+          }
+        }
+
+        &:hover:not(.active) {
+          border-color: @primaryColor4;
+
+          & + li {
+            border-top: 1px solid @primaryColor4;
+          }
+
+          a {
+            color: @primaryColor6;
+          }
+        }
+
+        a {
+          background-color: transparent;
+          color: @primaryColor5;
+          .border-radius(0);
+        }
+      }
+    }
+  }
+
+  .admin-panel-content-container {
+    float: none;
+    width: auto;
+
+    height: 100%;
+    margin-left: @adminPanelMenuMinWidth;
+    padding-left: @adminPanelContentPaddingLeft;
+  }
+}
