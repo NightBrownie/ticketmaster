@@ -5,13 +5,13 @@
     var ObjectId = mongoose.Schema.Types.ObjectId;
 
     var eventSchema = mongoose.Schema({
-        date: {type: Date, required: true, default: Date.now()},
+        date: {type: Date, required: true, default: Date.now},
         filmId: {type: ObjectId, required: true},
         theaterId: {type: ObjectId, required: true},
         hallId: {type: ObjectId, required: true}
     });
 
-    //validatord
+    //validators
 
-    module.exports = mongoose.model('Event', userSchema);
+    module.exports = mongoose.model('Event', eventSchema);
 })(module);
