@@ -11,7 +11,7 @@
     });
 
     mongoose.connection.on('open', function(connection) {
-        console.log('Mongoose is now connected to mongodb: ' + connection);
+        console.log('Mongoose is now connected to mongod');
     });
 
     module.exports = mongoose;
