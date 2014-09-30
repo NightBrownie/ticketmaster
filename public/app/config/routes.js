@@ -77,7 +77,7 @@
                     url: '/adminpanel/films',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.films.html'
                         }
                     },
                     pageTitle: 'Admin panel | Add new films, edit or delete the old ones',
@@ -86,7 +86,7 @@
                     url: '/adminpanel/film/:id',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.film.html'
                         }
                     },
                     pageTitle: 'Admin panel | Edit film data',
@@ -95,7 +95,7 @@
                     url: '/adminpanel/theaters',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.theaters.html'
                         }
                     },
                     pageTitle: 'Admin panel | Add new theaters, edit or delete the old ones',
@@ -104,7 +104,7 @@
                     url: '/adminpanel/theater/:id',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.theater.html'
                         }
                     },
                     pageTitle: 'Admin panel | Edit theater data',
@@ -113,7 +113,7 @@
                     url: '/adminpanel/events',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.events.html'
                         }
                     },
                     pageTitle: 'Admin panel | Add new events, edit or delete the old ones',
@@ -122,7 +122,7 @@
                     url: '/adminpanel/event/:id',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.event.html'
                         }
                     },
                     pageTitle: 'Admin panel | Edit event data',
@@ -131,7 +131,7 @@
                     url: '/adminpanel/users',
                     views: {
                         'admin-panel-content-view': {
-
+                            templateUrl: '/app/views/adminPanel.users.html'
                         }
                     },
                     pageTitle: 'Admin panel | List or delete users',
