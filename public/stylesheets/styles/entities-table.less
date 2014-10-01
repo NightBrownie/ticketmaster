@@ -1,0 +1,90 @@
+.entities-table {
+    width: 100%;
+    
+    .table-header {
+        border-bottom: 1px solid @primaryColor2;
+        padding: 0 10px 10px;
+        margin-bottom: 10px;
+
+        .control-panel {
+            overflow: hidden;
+            .select-all-btn-control {
+                float: left;
+            }
+
+            .selected-items-count {
+                float: left;
+                height: 100%;
+                padding: 0 10px;
+                line-height: 34px
+            }
+
+            .remove-selected-btn-control {
+                float: right;
+            }
+        }
+    }
+
+    .table-content {
+        border-bottom: 1px solid @primaryColor2;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+
+        .entities {
+            list-style: none;
+            margin: 0;
+            padding: 0 10px;
+            
+            .entity-container {
+                overflow: hidden;
+
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+
+                border-bottom: 1px solid @primaryColor2;
+
+                &:last-of-type {
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .checkbox-container {
+                    text-align: center;
+                    border-right: 1px solid @primaryColor2;
+                }
+
+                .entity-title-container {
+                    display: block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                .entity-action-container {
+                    text-align: center;
+                    border-left: 1px solid @primaryColor2;
+
+                    .remove-action-container {
+                        span {
+                            color: lightgray;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: gray;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .table-paging {
+        text-align: center;
+        
+        .pagination {
+            margin: auto 0;
+        }
+    }
+}
