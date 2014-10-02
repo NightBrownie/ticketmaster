@@ -12,8 +12,13 @@
             </div>
             <div class="input-group control-container event-date-container datepicker-conainer">
                 <div class="input-group-addon">Date</div>
-                <input type="text" size="10" class="form-control" ng-model="sharedDate" data-autoclose="1" placeholder="Date" bs-datepicker>
-                <input type="text" size="8" class="form-control" ng-model="sharedDate" data-autoclose="1" placeholder="Time" bs-timepicker>
+                <input type="text" size="10" class="form-control" ng-model="sharedDate" data-autoclose="1"
+                       data-container="body" placeholder="Date" bs-datepicker>
+            </div>
+            <div class="input-group control-container event-date-container datepicker-conainer">
+                <div class="input-group-addon">Time</div>
+                <input type="text" size="8" class="form-control" ng-model="sharedDate" data-autoclose="1"
+                       data-container="body" placeholder="Time" bs-timepicker>
             </div>
             <div class="input-group control-container event-film-dropdown-container dropdown-container">
                 <div class="input-group-addon">Film</div>
