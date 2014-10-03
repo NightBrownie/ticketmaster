@@ -1,5 +1,6 @@
 var express = require('express');
 var swig = require('swig');
+    swig.setDefaults({ varControls: ['[[', ']]'] });
 
 var path = require('path');
 

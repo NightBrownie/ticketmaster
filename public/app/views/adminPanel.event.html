@@ -13,12 +13,13 @@
             <div class="input-group control-container event-date-container datepicker-conainer">
                 <div class="input-group-addon">Date</div>
                 <input type="text" size="10" class="form-control" ng-model="sharedDate" data-autoclose="1"
-                       data-container="body" placeholder="Date" bs-datepicker>
+                       data-container="body" placeholder="Date" data-min-date="today" bs-datepicker>
             </div>
             <div class="input-group control-container event-date-container datepicker-conainer">
                 <div class="input-group-addon">Time</div>
                 <input type="text" size="8" class="form-control" ng-model="sharedDate" data-autoclose="1"
-                       data-container="body" placeholder="Time" bs-timepicker>
+                       data-container="body" placeholder="Time" data-time-format="HH:mm" data-time-type="number"
+                       bs-timepicker>
             </div>
             <div class="input-group control-container event-film-dropdown-container dropdown-container">
                 <div class="input-group-addon">Film</div>
@@ -52,7 +53,8 @@
             </div>
             <div class="action-button-container">
                 <button type="submit" class="form-control btn btn-success">Save changes</button>
-                <button type="submit" class="form-control btn btn-default">Go back</button>
+                <a ui-sref="main.adminPanel.events" class="form-control btn btn-warning">List entities</a>
+                <button class="form-control btn btn-danger">Remove</button>
             </div>
         </form>
     </div>
