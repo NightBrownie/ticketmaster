@@ -1,1 +1,65 @@
-admin panel theater
+<div class="entity-edit-container event-entity-container">
+    <div class="entity-edit-form-container">
+        <form class="entity-edit-form event-edit-form form-horizontal" role="form">
+            <div class="form-header">
+                <div class="add-new-entity-form-header">Add the new event</div>
+                <div class="edit-entity-form-header">Edit event</div>
+            </div>
+
+            <div class="input-group control-container entity-id-container">
+                <div class="input-group-addon">ID</div>
+                <p class="form-control form-control-static">23132-321-3213-21-32-1-321321321</p>
+            </div>
+            <div class="input-group control-container event-date-container datepicker-conainer">
+                <div class="input-group-addon">Date</div>
+                <input type="text" size="10" class="form-control" ng-model="sharedDate" data-autoclose="1"
+                       data-container="body" placeholder="Date" data-min-date="today" bs-datepicker>
+            </div>
+            <div class="input-group control-container event-date-container datepicker-conainer">
+                <div class="input-group-addon">Time</div>
+                <input type="text" size="8" class="form-control" ng-model="sharedDate" data-autoclose="1"
+                       data-container="body" placeholder="Time" data-time-format="HH:mm" data-time-type="number"
+                       bs-timepicker>
+            </div>
+            <div class="input-group control-container event-film-dropdown-container dropdown-container">
+                <div class="input-group-addon">Film</div>
+                <!--Probaby should replace with angular strap select-->
+                <select class="form-control event-film-select">
+                    <option>film 1</option>
+                    <option>film 2</option>
+                    <option>film 3</option>
+                    <option>film 4</option>
+                    <option>film 5</option>
+                </select>
+            </div>
+            <div class="input-group control-container event-theater-dropdown-container dropdown-container">
+                <div class="input-group-addon">Theater</div>
+                <!--Probaby should replace with angular strap select-->
+                <select class="form-control event-film-select">
+                    <option>theater 1</option>
+                    <option>theater 2</option>
+                    <option>theater 3</option>
+                    <option>theater 4</option>
+                    <option>theater 5</option>
+                </select>
+            </div>
+            <div class="input-group control-container event-theater-hall-dropdown-container dropdown-container">
+                <div class="input-group-addon">Theater hall</div>
+                <!--Probaby should replace with angular strap select-->
+                <select class="form-control event-film-select">
+                    <option>theater hall 1</option>
+                    <option>theater hall 2</option>
+                    <option>theater hall 3</option>
+                    <option>theater hall 4</option>
+                    <option>theater hall 5</option>
+                </select>
+            </div>
+            <div class="action-button-container">
+                <button type="submit" class="form-control btn btn-success">Save changes</button>
+                <a ui-sref="main.adminPanel.events" class="form-control btn btn-warning">List entities</a>
+                <button class="form-control btn btn-danger">Remove</button>
+            </div>
+        </form>
+    </div>
+    <div class="entity-preview-container"></div>
+</div>

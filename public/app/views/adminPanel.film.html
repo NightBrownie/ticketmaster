@@ -1,1 +1,292 @@
-admin panel film
+<div class="entity-edit-container event-entity-container">
+    <div class="entity-edit-form-container">
+        <form class="entity-edit-form event-edit-form form-horizontal" role="form">
+            <div class="form-header">
+                <div class="add-new-entity-form-header">Add the new film</div>
+                <div class="edit-entity-form-header">Edit film</div>
+            </div>
+
+            <div class="input-group control-container entity-id-container">
+                <div class="input-group-addon">Film cover</div>
+                <div class="form-control">
+                    <div class="thumbnail main-image-thumbnail">
+                        <img alt="Film cover image" width="240px" height="320px">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">Current url</div>
+                            <span class="form-control">http://blah.blah.blah/image</span>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">New url</div>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="actions-container">
+                            <a href="#" class="btn btn-primary" role="button">Update url</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group control-container entity-id-container">
+                <div class="input-group-addon">ID</div>
+                <p class="form-control form-control-static">23132-321-3213-21-32-1-321321321</p>
+            </div>
+            <div class="input-group control-container film-title-container dropdown-container">
+                <div class="input-group-addon">Title</div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group control-container film-genre-container dropdown-container">
+                <div class="input-group-addon">Genre</div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group control-container film-director-container dropdown-container">
+                <div class="input-group-addon">Director</div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group control-container film-country-dropdown-container dropdown-container">
+                <div class="input-group-addon">Country</div>
+                <select class="form-control film-country-select">
+                    <option>Country 1</option>
+                    <option>Country 2</option>
+                    <option>Country 3</option>
+                    <option>Country 4</option>
+                    <option>Country 5</option>
+                </select>
+            </div>
+            <div class="input-group control-container film-year-dropdown-container dropdown-container">
+                <div class="input-group-addon">Production year</div>
+                <select class="form-control film-year-select">
+                    <option>2000</option>
+                    <option>2001</option>
+                    <option>2002</option>
+                    <option>2003</option>
+                    <option>2004</option>
+                </select>
+            </div>
+            <div class="input-group control-container film-age-restriction-dropdown-container dropdown-container">
+                <div class="input-group-addon">Age restriction</div>
+                <select class="form-control film-age-restriction-select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="input-group control-container film-length-container">
+                <div class="input-group-addon">Duration</div>
+                <div class="form-control film-length-dropdowns-container">
+                    <div class="input-group control-container film-duration-hours-dropdown-container dropdown-container">
+                        <div class="input-group-addon">Hours</div>
+                        <select class="form-control film-duration-hours-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="input-group control-container film-duration-minutes-dropdown-container dropdown-container">
+                        <div class="input-group-addon">Minutes</div>
+                        <select class="form-control film-duration-minutes-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="input-group control-container film-duration-seconds-dropdown-container dropdown-container">
+                        <div class="input-group-addon">Seconds</div>
+                        <select class="form-control film-duration-seconds-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group control-container">
+                <div class="input-group-addon">Main actors</div>
+                <div class="form-control subentities-list-container">
+                    <div class="form-control add-subentity-form-container">
+                        <div class="input-group">
+                            <div class="input-group-addon">Actor name</div>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="action-button-container">
+                            <a class="form-control btn btn-primary">Add actor</a>
+                        </div>
+                    </div>
+                    <div class="existing-subentities-list-container">
+                        <div class="subentity-list-header-container">
+                            <h4 class="subentity-list-header">Main actors:</h4>
+                        </div>
+                        <ul class="subentity-edit-list">
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                            <li class="subentity-item">
+                                <div class="subentity-name">Someone Someone</div>
+                                <div class="remove-subentity-btn-container">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group control-container entity-edit-image-list-container">
+                <div class="input-group-addon">Frames</div>
+                <div class="form-control image-edit-list-container">
+                    <div class="form-control add-image-form-container">
+                        <div class="input-group">
+                            <div class="input-group-addon">Frame url</div>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="action-button-container">
+                            <a class="form-control btn btn-primary">Add frame</a>
+                        </div>
+                    </div>
+                    <div class="existing-images-list-container">
+                        <div class="image-list-header-container">
+                            <h4 class="image-list-header">Frames:</h4>
+                        </div>
+                        <ul class="image-edit-list row">
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Frame">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-button-container">
+                <button type="submit" class="form-control btn btn-success">Save changes</button>
+                <a ui-sref="main.adminPanel.events" class="form-control btn btn-warning">List entities</a>
+                <button class="form-control btn btn-danger">Remove</button>
+            </div>
+        </form>
+    </div>
+    <div class="entity-preview-container"></div>
+</div>
