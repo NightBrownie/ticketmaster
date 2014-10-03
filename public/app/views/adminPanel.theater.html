@@ -1,62 +1,227 @@
-<div class="entity-edit-container event-entity-container">
+<div class="entity-edit-container">
     <div class="entity-edit-form-container">
-        <form class="entity-edit-form event-edit-form form-horizontal" role="form">
+        <form class="entity-edit-form form-horizontal" role="form">
             <div class="form-header">
-                <div class="add-new-entity-form-header">Add the new event</div>
-                <div class="edit-entity-form-header">Edit event</div>
+                <div class="add-new-entity-form-header">Add the new theater</div>
+                <div class="edit-entity-form-header">Edit theater</div>
             </div>
 
+            <div class="input-group control-container entity-id-container">
+                <div class="input-group-addon">Theater main image</div>
+                <div class="form-control">
+                    <div class="thumbnail main-image-thumbnail">
+                        <img alt="Theater main image" width="240px" height="320px">
+
+                        <div class="input-group">
+                            <div class="input-group-addon">Current url</div>
+                            <span class="form-control">http://blah.blah.blah/image</span>
+                        </div>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">New url</div>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="actions-container">
+                            <a href="#" class="btn btn-primary" role="button">Update url</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="input-group control-container entity-id-container">
                 <div class="input-group-addon">ID</div>
                 <p class="form-control form-control-static">23132-321-3213-21-32-1-321321321</p>
             </div>
-            <div class="input-group control-container event-date-container datepicker-conainer">
-                <div class="input-group-addon">Date</div>
-                <input type="text" size="10" class="form-control" ng-model="sharedDate" data-autoclose="1"
-                       data-container="body" placeholder="Date" data-min-date="today" bs-datepicker>
+            <div class="input-group control-container theater-name-container">
+                <div class="input-group-addon">Name</div>
+                <input type="text" class="form-control">
             </div>
-            <div class="input-group control-container event-date-container datepicker-conainer">
-                <div class="input-group-addon">Time</div>
-                <input type="text" size="8" class="form-control" ng-model="sharedDate" data-autoclose="1"
-                       data-container="body" placeholder="Time" data-time-format="HH:mm" data-time-type="number"
-                       bs-timepicker>
+            <div class="input-group control-container theater-description-container">
+                <div class="input-group-addon">Description</div>
+                <textarea type="text" class="form-control"></textarea>
             </div>
-            <div class="input-group control-container event-film-dropdown-container dropdown-container">
-                <div class="input-group-addon">Film</div>
-                <!--Probaby should replace with angular strap select-->
-                <select class="form-control event-film-select">
-                    <option>film 1</option>
-                    <option>film 2</option>
-                    <option>film 3</option>
-                    <option>film 4</option>
-                    <option>film 5</option>
-                </select>
+            <div class="input-group control-container theater-subway-station-name-container">
+                <div class="input-group-addon">Subway station</div>
+                <input type="text" class="form-control">
             </div>
-            <div class="input-group control-container event-theater-dropdown-container dropdown-container">
-                <div class="input-group-addon">Theater</div>
-                <!--Probaby should replace with angular strap select-->
-                <select class="form-control event-film-select">
-                    <option>theater 1</option>
-                    <option>theater 2</option>
-                    <option>theater 3</option>
-                    <option>theater 4</option>
-                    <option>theater 5</option>
-                </select>
+            <div class="input-group control-container theater-phone-number-container">
+                <div class="input-group-addon">Phone number</div>
+                <input type="text" class="form-control">
             </div>
-            <div class="input-group control-container event-theater-hall-dropdown-container dropdown-container">
-                <div class="input-group-addon">Theater hall</div>
-                <!--Probaby should replace with angular strap select-->
-                <select class="form-control event-film-select">
-                    <option>theater hall 1</option>
-                    <option>theater hall 2</option>
-                    <option>theater hall 3</option>
-                    <option>theater hall 4</option>
-                    <option>theater hall 5</option>
-                </select>
+            <div class="input-group control-container theater-options-support-container">
+                <div class="input-group-addon">Options supported</div>
+                <div class="form-control">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Online booking supported
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Ternimal booking supported
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            QR code reader supported
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Bar allowed
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Parking allowed
+                        </label>
+                    </div>
+                </div>
             </div>
+            <div class="input-group control-container theater-address-container">
+                <div class="input-group-addon">Address</div>
+                <div class="form-control">
+                    <div class="input-group control-container dropdown-container">
+                        <div class="input-group-addon">City</div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group control-container dropdown-container">
+                        <div class="input-group-addon">Street</div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group control-container dropdown-container">
+                        <div class="input-group-addon">House number</div>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group control-container theater-halls-edit-list-container">
+                <div class="input-group-addon"></div>
+                <div class="form-control">
+                </div>
+            </div>
+            <div class="input-group control-container entity-edit-image-list-container">
+                <div class="input-group-addon">Images</div>
+                <div class="form-control image-edit-list-container">
+                    <div class="form-control add-image-form-container">
+                        <div class="input-group">
+                            <div class="input-group-addon">Image url</div>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="action-button-container">
+                            <a class="form-control btn btn-primary">Add image</a>
+                        </div>
+                    </div>
+                    <div class="existing-images-list-container">
+                        <div class="image-list-header-container">
+                            <h4 class="image-list-header">Images:</h4>
+                        </div>
+                        <ul class="image-edit-list row">
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col-xs-4">
+                                <div class="image-item thumbnail">
+                                    <div class="image-container">
+                                        <img src="balh blah" alt="Image">
+                                    </div>
+                                    <div class="image-url-container">
+                                        <span>some url</span>
+                                    </div>
+                                    <div class="remove-image-btn-container">
+                                        <a class="btn btn-primary">Remove item</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="action-button-container">
                 <button type="submit" class="form-control btn btn-success">Save changes</button>
-                <a ui-sref="main.adminPanel.events" class="form-control btn btn-warning">List entities</a>
+                <a ui-sref="main.adminPanel.theaters" class="form-control btn btn-warning">List entities</a>
                 <button class="form-control btn btn-danger">Remove</button>
             </div>
         </form>

@@ -5,11 +5,12 @@
     
     var theaterSchema = mongoose.Schema({
         name: {type: String, required: true},
+        mainImageUrl: {type: String, required: true},
         description: {type: String, required: false},
         subwayStationName: {type: String},
         onlineBookingSupported: {type: Boolean, required: true, default: false},
         terminalPaymentSupported: {type: Boolean, required: true, default: false},
-        qrCodeReaderSuuported: {type: Boolean, required: true, default: false},
+        qrCodeReaderSupported: {type: Boolean, required: true, default: false},
         barAllowed: {type: Boolean, required: true, default: false},
         parkingAllowed: {type: Boolean, required: true, default: false},
         address: {
