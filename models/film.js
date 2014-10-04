@@ -5,6 +5,7 @@
 
     var filmSchema = mongoose.Schema({
         name: {type: String, required: true},
+        description: {type: String, required: true},
         mainImageUrl: {type: String, required: true},
         frameUrls: {type: [String], required: true},
         country: {type: String},

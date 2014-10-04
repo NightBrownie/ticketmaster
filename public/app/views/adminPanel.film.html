@@ -40,7 +40,11 @@
             <div class="input-group control-container film-title-container dropdown-container">
                 <div class="input-group-addon">Title</div>
                 <input type="text" class="form-control" ng-model="entity.name"
-                       ng-pattern="validationRegularExpressions.plainText">
+                       ng-pattern="validationRegularExpressions.plainText" ng-required="true">
+            </div>
+            <div class="input-group control-container film-description-container">
+                <div class="input-group-addon">Description</div>
+                <textarea type="text" class="form-control" ng-required="true" ng-model="entity.description"></textarea>
             </div>
             <div class="input-group control-container film-genre-container dropdown-container">
                 <div class="input-group-addon">Genre</div>
@@ -175,5 +179,4 @@
 
         <custom-spinner ng-show="isBusy"></custom-spinner>
     </div>
-    <div class="entity-preview-container"></div>
 </div>

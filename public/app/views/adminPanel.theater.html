@@ -1,83 +1,92 @@
 <div class="entity-edit-container">
     <div class="entity-edit-form-container">
-        <form class="entity-edit-form form-horizontal" role="form">
+        <form class="entity-edit-form form-horizontal" role="form" name="theaterEditForm">
             <div class="form-header">
-                <div class="add-new-entity-form-header">Add the new theater</div>
-                <div class="edit-entity-form-header">Edit theater</div>
+                <div class="add-new-entity-form-header" ng-show="entity.__id === undefined">Add the new theater</div>
+                <div class="edit-entity-form-header" ng-hide="entity.__id === undefined">Edit theater</div>
             </div>
 
             <div class="input-group control-container entity-id-container">
                 <div class="input-group-addon">Theater main image</div>
                 <div class="form-control">
                     <div class="thumbnail main-image-thumbnail">
-                        <img alt="Theater main image" width="240px" height="320px">
+                        <img alt="Theater main image" width="240px" height="320px" ng-src="{{entity.mainImageUrl}}"
+                                ng-show="entity.mainImageUrl !== ''">
 
-                        <div class="input-group">
+                        <div class="input-group" ng-show="entity.mainImageUrl !== ''">
                             <div class="input-group-addon">Current url</div>
-                            <span class="form-control">http://blah.blah.blah/image</span>
+                            <span class="form-control">{{entity.mainImageUrl}}</span>
                         </div>
 
-                        <div class="input-group">
+                        <div class="input-group" ng-form="newMainImageUrlForm">
                             <div class="input-group-addon">New url</div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newMainImageUrl"
+                                    ng-pattern="validationRegularExpressions.url">
                         </div>
 
                         <div class="actions-container">
-                            <a href="#" class="btn btn-primary" role="button">Update url</a>
+                            <a href="#" class="btn btn-primary" role="button" ng-click="saveMainImageUrl(newMainImageUrl)">
+                                Update url
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="input-group control-container entity-id-container">
+            <div class="input-group control-container entity-id-container" ng-show="entity.__id !== undefined">
                 <div class="input-group-addon">ID</div>
-                <p class="form-control form-control-static">23132-321-3213-21-32-1-321321321</p>
+                <p class="form-control form-control-static">{{entity.__id}}</p>
             </div>
             <div class="input-group control-container theater-name-container">
                 <div class="input-group-addon">Name</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.name"
+                        ng-pattern="validationRegularExpressions.plainText" ng-required="true">
             </div>
             <div class="input-group control-container theater-description-container">
                 <div class="input-group-addon">Description</div>
-                <textarea type="text" class="form-control"></textarea>
+                <textarea type="text" class="form-control" ng-model="entity.description"
+                        ng-required="true">
+                </textarea>
             </div>
             <div class="input-group control-container theater-subway-station-name-container">
                 <div class="input-group-addon">Subway station</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.subwayStationName"
+                        ng-pattern="validationRegularExpressions.plainText">
             </div>
             <div class="input-group control-container theater-phone-number-container">
                 <div class="input-group-addon">Phone number</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.phoneNumber"
+                        ng-pattern="validationRegularExpressions.phoneNumber">
             </div>
             <div class="input-group control-container theater-options-support-container">
                 <div class="input-group-addon">Options supported</div>
                 <div class="form-control">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="">
+                            <input type="checkbox" ng-model="entity.onlineBookingSupported">
                             Online booking supported
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="">
-                            Ternimal booking supported
+                            <input type="checkbox" ng-model="entity.terminalPaymentSupported">
+                            Ternimal payment supported
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="">
+                            <input type="checkbox" ng-model="entity.qrCodeReaderSupported">
                             QR code reader supported
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="">
+                            <input type="checkbox" ng-model="entity.barAllowed">
                             Bar allowed
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" value="">
+                            <input type="checkbox" ng-model="entity.parkingAllowed">
                             Parking allowed
                         </label>
                     </div>
@@ -88,15 +97,18 @@
                 <div class="form-control">
                     <div class="input-group control-container dropdown-container">
                         <div class="input-group-addon">City</div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" ng-model="entity.address.city" ng-required="true"
+                                ng-pattern="validationRegularExpressions.plainText">
                     </div>
                     <div class="input-group control-container dropdown-container">
                         <div class="input-group-addon">Street</div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" ng-model="entity.address.streen" ng-required="true"
+                               ng-pattern="validationRegularExpressions.plainText">
                     </div>
                     <div class="input-group control-container dropdown-container">
                         <div class="input-group-addon">House number</div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" ng-model="entity.address.houseNumb" ng-required="true"
+                               ng-pattern="validationRegularExpressions.plainText">
                     </div>
                 </div>
             </div>
@@ -334,108 +346,31 @@
                 <div class="input-group-addon">Images</div>
                 <div class="form-control image-edit-list-container">
                     <div class="form-control add-image-form-container">
-                        <div class="input-group">
+                        <div class="input-group" ng-form="addImageForm">
                             <div class="input-group-addon">Image url</div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newImageUrl"
+                                    ng-pattern="validationRegularExpressions.url">
                         </div>
 
                         <div class="action-button-container">
-                            <a class="form-control btn btn-primary">Add image</a>
+                            <a class="form-control btn btn-primary" ng-click="addImage(newImageUrl)">Add image</a>
                         </div>
                     </div>
-                    <div class="existing-images-list-container">
+                    <div class="existing-images-list-container" ng-show="entity.photos.length > 0">
                         <div class="image-list-header-container">
                             <h4 class="image-list-header">Images:</h4>
                         </div>
                         <ul class="image-edit-list row">
-                            <li class="col-xs-4">
+                            <li class="col-xs-4" ng-repeat="image in entity.photos">
                                 <div class="image-item thumbnail">
                                     <div class="image-container">
-                                        <img src="balh blah" alt="Image">
+                                        <img ng-src="{{image}}" alt="Image">
                                     </div>
                                     <div class="image-url-container">
-                                        <span>some url</span>
+                                        <span>{{image}}</span>
                                     </div>
                                     <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Image">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
+                                        <a class="btn btn-primary" ng-click="$parent.removeImage(image)">Remove item</a>
                                     </div>
                                 </div>
                             </li>
@@ -445,11 +380,17 @@
             </div>
 
             <div class="action-button-container">
-                <button type="submit" class="form-control btn btn-success">Save changes</button>
+                <button type="submit" class="form-control btn btn-success"
+                        ng-class="{'disabled': !theaterEditForm.$valid}" ng-click="saveTheater(entity)">
+                    Save changes
+                </button>
                 <a ui-sref="main.adminPanel.theaters" class="form-control btn btn-warning">List entities</a>
-                <button class="form-control btn btn-danger">Remove</button>
+                <button class="form-control btn btn-danger" ng-show="entity.__id !== undefined"
+                        ng-click="removeTheater(entity)">
+                    Remove
+                </button>
             </div>
         </form>
+        <custom-spinner ng-show="isBusy"></custom-spinner>
     </div>
-    <div class="entity-preview-container"></div>
 </div>

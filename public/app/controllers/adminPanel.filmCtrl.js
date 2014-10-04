@@ -27,6 +27,7 @@
                         //set default entity structure
                         $scope.entity = {
                             name: '',
+                            description: '',
                             mainImageUrl: '',
                             frameUrls: [],
                             country: definitions.countriesSelectOptions[0],
@@ -57,6 +58,8 @@
                     if (actor && $scope.addActorForm.$valid
                             && $scope.entity.mainActors.indexOf(actor) === -1) {
                         $scope.entity.mainActors.push(actor);
+
+                        $scope.newActorName = '';
                     }
                 };
 
@@ -70,6 +73,8 @@
                     if (frameUrl && $scope.addFrameForm.$valid
                         && $scope.entity.frameUrls.indexOf(frameUrl) === -1) {
                         $scope.entity.frameUrls.push(frameUrl);
+
+                        $scope.newFrameUrl = '';
                     }
                 };
 

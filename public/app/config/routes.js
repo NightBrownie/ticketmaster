@@ -105,7 +105,8 @@
                     url: '/adminpanel/theater/:id',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.theater.html'
+                            templateUrl: '/app/views/adminPanel.theater.html',
+                            controller: 'adminPanel.theaterCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Edit theater data',

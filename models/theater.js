@@ -18,7 +18,7 @@
             type: {
                 city: {type: String, required: true},
                 street: {type: String, required: true},
-                houseNumb: {type: String, required: true},
+                houseNumb: {type: String, required: true}
             }
         },
         phoneNumber: {type: String},

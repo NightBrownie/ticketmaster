@@ -14,7 +14,8 @@
 form {
   &.ng-invalid {
     & > div {
-      input {
+      input,
+      textarea {
         &.ng-invalid:not(:focus) {
           border-color: @validationColor1;
           .box-shadow(0 0 8px @validationColor1;);
