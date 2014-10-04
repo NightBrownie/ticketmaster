@@ -41,6 +41,12 @@
                             value: email
                         }
                     }
+                },
+                getDefinitions: function() {
+                    return {
+                        url: '/api/definitions',
+                        method: 'GET'
+                    }
                 }
             };
         });

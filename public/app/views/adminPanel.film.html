@@ -1,77 +1,73 @@
 <div class="entity-edit-container film-entity-container">
     <div class="entity-edit-form-container">
-        <form class="entity-edit-form film-edit-form form-horizontal" role="form">
+        <form class="entity-edit-form film-edit-form form-horizontal" role="form"
+              name="filmEditForm" ng-show="entity !== undefined">
             <div class="form-header">
-                <div class="add-new-entity-form-header">Add the new film</div>
-                <div class="edit-entity-form-header">Edit film</div>
+                <div class="add-new-entity-form-header" ng-hide="entity.__id !== undefined">Add the new film</div>
+                <div class="edit-entity-form-header" ng-show="entity.__id !== undefined">Edit film</div>
             </div>
 
-            <div class="input-group control-container entity-id-container">
+            <div class="input-group control-container">
                 <div class="input-group-addon">Film cover</div>
                 <div class="form-control">
                     <div class="thumbnail main-image-thumbnail">
-                        <img alt="Film cover image" width="240px" height="320px">
+                        <img alt="Film cover image" width="240px" height="320px" ng-src="{{entity.mainImageUrl}}"
+                             ng-show="entity.mainImageUrl != ''">
 
-                        <div class="input-group">
+                        <div class="input-group" ng-show="entity.mainImageUrl != ''">
                             <div class="input-group-addon">Current url</div>
-                            <span class="form-control">http://blah.blah.blah/image</span>
+                            <span class="form-control">{{entity.mainImageUrl}}</span>
                         </div>
 
-                        <div class="input-group">
+                        <div class="input-group" ng-form="updateMainImageUrlForm">
                             <div class="input-group-addon">New url</div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newCoverImageUrl"
+                                    ng-pattern="validationRegularExpressions.url">
                         </div>
 
                         <div class="actions-container">
-                            <a href="#" class="btn btn-primary" role="button">Update url</a>
+                            <a href="#" class="btn btn-primary" role="button" ng-click="saveCoverImageUrl(newCoverImageUrl)">
+                                Update url
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="input-group control-container entity-id-container">
+            <div class="input-group control-container entity-id-container" ng-show="entity.__id !== undefined">
                 <div class="input-group-addon">ID</div>
-                <p class="form-control form-control-static">23132-321-3213-21-32-1-321321321</p>
+                <p class="form-control form-control-static">{{entity.__id}}</p>
             </div>
             <div class="input-group control-container film-title-container dropdown-container">
                 <div class="input-group-addon">Title</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.name"
+                       ng-pattern="validationRegularExpressions.plainText">
             </div>
             <div class="input-group control-container film-genre-container dropdown-container">
                 <div class="input-group-addon">Genre</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.genre"
+                       ng-pattern="validationRegularExpressions.plainText">
             </div>
             <div class="input-group control-container film-director-container dropdown-container">
                 <div class="input-group-addon">Director</div>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="entity.director"
+                       ng-pattern="validationRegularExpressions.plainText">
             </div>
             <div class="input-group control-container film-country-dropdown-container dropdown-container">
                 <div class="input-group-addon">Country</div>
-                <select class="form-control film-country-select">
-                    <option>Country 1</option>
-                    <option>Country 2</option>
-                    <option>Country 3</option>
-                    <option>Country 4</option>
-                    <option>Country 5</option>
+                <select class="form-control film-country-select" ng-model="entity.country"
+                        ng-options="country for country in definitions.countriesSelectOptions">
                 </select>
             </div>
             <div class="input-group control-container film-year-dropdown-container dropdown-container">
                 <div class="input-group-addon">Production year</div>
-                <select class="form-control film-year-select">
-                    <option>2000</option>
-                    <option>2001</option>
-                    <option>2002</option>
-                    <option>2003</option>
-                    <option>2004</option>
+                <select class="form-control film-year-select" ng-model="entity.year"
+                        ng-options="year for year in definitions.filmProductionYearsSelectOptions">
                 </select>
             </div>
             <div class="input-group control-container film-age-restriction-dropdown-container dropdown-container">
                 <div class="input-group-addon">Age restriction</div>
-                <select class="form-control film-age-restriction-select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control film-age-restriction-select" ng-model="entity.ageRestriction"
+                        ng-options="option for option in definitions.ageRestrictionsSelectOptions">
                 </select>
             </div>
             <div class="input-group control-container film-length-container">
@@ -79,32 +75,20 @@
                 <div class="form-control film-length-dropdowns-container">
                     <div class="input-group control-container film-duration-hours-dropdown-container dropdown-container">
                         <div class="input-group-addon">Hours</div>
-                        <select class="form-control film-duration-hours-select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control film-duration-hours-select" ng-model="entity.length.hours"
+                                ng-options="hour for hour in definitions.hoursSelectOptions">
                         </select>
                     </div>
                     <div class="input-group control-container film-duration-minutes-dropdown-container dropdown-container">
                         <div class="input-group-addon">Minutes</div>
-                        <select class="form-control film-duration-minutes-select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control film-duration-minutes-select" ng-model="entity.length.minutes"
+                                ng-options="minute for minute in definitions.minutesSelectOptions">
                         </select>
                     </div>
                     <div class="input-group control-container film-duration-seconds-dropdown-container dropdown-container">
                         <div class="input-group-addon">Seconds</div>
-                        <select class="form-control film-duration-seconds-select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control film-duration-seconds-select" ng-model="entity.length.seconds"
+                                ng-options="second for second in definitions.secondsSelectOptions">
                         </select>
                     </div>
                 </div>
@@ -112,55 +96,27 @@
             <div class="input-group control-container">
                 <div class="input-group-addon">Main actors</div>
                 <div class="form-control subentities-list-container">
-                    <div class="form-control add-subentity-form-container">
+                    <div class="form-control add-subentity-form-container" ng-form="addActorForm">
                         <div class="input-group">
                             <div class="input-group-addon">Actor name</div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newActorName"
+                                   ng-pattern="validationRegularExpressions.plainText">
                         </div>
 
                         <div class="action-button-container">
-                            <a class="form-control btn btn-primary">Add actor</a>
+                            <a class="form-control btn btn-primary" ng-click="addActor(newActorName)">Add actor</a>
                         </div>
                     </div>
-                    <div class="existing-subentities-list-container">
+                    <div class="existing-subentities-list-container" ng-show="entity.mainActors.length > 0">
                         <div class="subentity-list-header-container">
                             <h4 class="subentity-list-header">Main actors:</h4>
                         </div>
                         <ul class="subentity-edit-list">
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
+                            <li class="subentity-item" ng-repeat="actor in entity.mainActors">
+                                <div class="subentity-name">{{actor}}</div>
                                 <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </li>
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
-                                <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </li>
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
-                                <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </li>
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
-                                <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </li>
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
-                                <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </li>
-                            <li class="subentity-item">
-                                <div class="subentity-name">Someone Someone</div>
-                                <div class="remove-subentity-btn-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                    <span class="glyphicon glyphicon-remove-circle"
+                                          ng-click="$parent.removeActor(actor)"></span>
                                 </div>
                             </li>
                         </ul>
@@ -170,109 +126,32 @@
             <div class="input-group control-container entity-edit-image-list-container">
                 <div class="input-group-addon">Frames</div>
                 <div class="form-control image-edit-list-container">
-                    <div class="form-control add-image-form-container">
+                    <div class="form-control add-image-form-container" ng-form="addFrameForm">
                         <div class="input-group">
                             <div class="input-group-addon">Frame url</div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newFrameUrl"
+                                   ng-pattern="validationRegularExpressions.url">
                         </div>
 
                         <div class="action-button-container">
-                            <a class="form-control btn btn-primary">Add frame</a>
+                            <a class="form-control btn btn-primary" ng-click="addFrameUrl(newFrameUrl)">Add frame</a>
                         </div>
                     </div>
-                    <div class="existing-images-list-container">
+                    <div class="existing-images-list-container" ng-show="entity.frameUrls.length > 0">
                         <div class="image-list-header-container">
                             <h4 class="image-list-header">Frames:</h4>
                         </div>
                         <ul class="image-edit-list row">
-                            <li class="col-xs-4">
+                            <li class="col-xs-4" ng-repeat="frameUrl in entity.frameUrls">
                                 <div class="image-item thumbnail">
                                     <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
+                                        <img ng-src="{{frameUrl}}" alt="Frame">
                                     </div>
                                     <div class="image-url-container">
-                                        <span>some url</span>
+                                        <span>{{frameUrl}}</span>
                                     </div>
                                     <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-xs-4">
-                                <div class="image-item thumbnail">
-                                    <div class="image-container">
-                                        <img src="balh blah" alt="Frame">
-                                    </div>
-                                    <div class="image-url-container">
-                                        <span>some url</span>
-                                    </div>
-                                    <div class="remove-image-btn-container">
-                                        <a class="btn btn-primary">Remove item</a>
+                                        <a class="btn btn-primary" ng-click="$parent.removeFrameUrl(frameUrl)">Remove item</a>
                                     </div>
                                 </div>
                             </li>
@@ -282,11 +161,19 @@
             </div>
 
             <div class="action-button-container">
-                <button type="submit" class="form-control btn btn-success">Save changes</button>
+                <button type="submit" class="form-control btn btn-success"
+                        ng-class="{'disabled': !filmEditForm.$valid}" ng-click="saveFilm(entity)">
+                    Save changes
+                </button>
                 <a ui-sref="main.adminPanel.films" class="form-control btn btn-warning">List entities</a>
-                <button class="form-control btn btn-danger">Remove</button>
+                <button class="form-control btn btn-danger" ng-show="entity.__id !== undefined"
+                        ng-click="removeFilm(entity)">
+                    Remove
+                </button>
             </div>
         </form>
+
+        <custom-spinner ng-show="isBusy"></custom-spinner>
     </div>
     <div class="entity-preview-container"></div>
 </div>

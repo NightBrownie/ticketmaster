@@ -10,3 +10,32 @@
     height: 100%;
   }
 }
+
+form {
+  &.ng-invalid {
+    & > div {
+      input {
+        &.ng-invalid:not(:focus) {
+          border-color: @validationColor1;
+          .box-shadow(0 0 8px @validationColor1;);
+        }
+      }
+
+      &.submit-button-container button {
+        border-color: @validationColor1;
+        background-color: @validationColor1;
+
+        &:focus {
+          .box-shadow(none);
+        }
+      }
+    }
+  }
+}
+
+span,
+a,
+[h],
+div, {
+  word-wrap: break-word;
+}

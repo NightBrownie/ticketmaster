@@ -86,7 +86,8 @@
                     url: '/adminpanel/film/:id',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.film.html'
+                            templateUrl: '/app/views/adminPanel.film.html',
+                            controller: 'adminPanel.filmCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Edit film data',

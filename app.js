@@ -18,6 +18,7 @@ var secret = require('./config/secret');
 var routes = require('./routes/index');
 //api controllers
 var userRoutes = require('./routes/user');
+var definitions = require('./routes/definitions');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //api controllers routers
 app.use('/api',userRoutes);
+app.use('/api', definitions);
 
 //default route
 app.use('/*', routes);
