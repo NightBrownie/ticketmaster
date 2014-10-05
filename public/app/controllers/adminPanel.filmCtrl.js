@@ -85,7 +85,9 @@
                 };
 
                 $scope.saveFilm = function(film) {
-                    console.log('film saved');
+                    if ($scope.filmEditForm.$valid) {
+                        console.log('film saved');
+                    }
                 };
 
                 $scope.removeFilm = function(film) {

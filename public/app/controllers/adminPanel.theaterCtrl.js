@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('ticket-master')
-        .controller('adminPanel.theaterCtrl', ['$scope', '$stateParams', 'definitionsService', '$state', 'routingParameters',
+        .controller('adminPanel.theaterCtrl', ['$scope', '$stateParams', '$state', 'routingParameters',
                 'validationRegularExpressions',
-            function($scope, $stateParams, definitionsService, $state, routingParameters, validationRegularExpressions) {
+            function($scope, $stateParams, $state, routingParameters, validationRegularExpressions) {
                 $scope.validationRegularExpressions = validationRegularExpressions;
 
                 var HallTemplate = function() {
@@ -29,43 +29,35 @@
                 $scope.currentEditingHall = null;
                 $scope.newHallRow = new HallRowTemplate();
 
-                var filmId = $stateParams.id;
+                var theaterId = $stateParams.id;
 
-                definitionsService.getDefinitions().then(function(definitions) {
-                    $scope.definitions = definitions;
+                //check for id and decide if it is a new entity creation or existing entity editing
+                if (theaterId) {
+                    //call $http service to get filmInfo
+                } else  {
+                    $scope.isBusy = false;
 
-                    //check for id and decide if it is a new entity creation or existing entity editing
-                    if (filmId) {
-                        //call $http service to get filmInfo
-                    } else  {
-                        $scope.isBusy = false;
-
-                        //get definitions and save them into scope variable
-
-                        //set default entity structure
-                        $scope.entity = {
-                            name: '',
-                            mainImageUrl: '',
-                            description: '',
-                            subwayStationName: '',
-                            onlineBookingSupported: false,
-                            terminalPaymentSupported: false,
-                            qrCodeReaderSupported: false,
-                            barAllowed: false,
-                            parkingAllowed: false,
-                            address: {
-                                city: '',
-                                street: '',
-                                houseNumb: ''
-                            },
-                            phoneNumber: '',
-                            photos: [],
-                            halls: []
-                        };
-                    }
-                }, function(error) {
-                    $state.go(routingParameters.defaultState);
-                });
+                    //set default entity structure
+                    $scope.entity = {
+                        name: '',
+                        mainImageUrl: '',
+                        description: '',
+                        subwayStationName: '',
+                        onlineBookingSupported: false,
+                        terminalPaymentSupported: false,
+                        qrCodeReaderSupported: false,
+                        barAllowed: false,
+                        parkingAllowed: false,
+                        address: {
+                            city: '',
+                            street: '',
+                            houseNumb: ''
+                        },
+                        phoneNumber: '',
+                        photos: [],
+                        halls: []
+                    };
+                }
 
                 //methods
                 $scope.saveMainImageUrl = function(url) {
@@ -177,11 +169,13 @@
                     }
                 };
 
-                $scope.saveTheater = function(film) {
-                    console.log('theater saved');
+                $scope.saveTheater = function(theater) {
+                    if ($scope.theaterEditForm.$valid) {
+                        console.log('theater saved');
+                    }
                 };
 
-                $scope.removeTheater = function(film) {
+                $scope.removeTheater = function(theater) {
                     console.log('theater removed');
                 };
             }]);

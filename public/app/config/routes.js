@@ -124,7 +124,8 @@
                     url: '/adminpanel/event/:id',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.event.html'
+                            templateUrl: '/app/views/adminPanel.event.html',
+                            controller: 'adminPanel.eventCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Edit event data',
