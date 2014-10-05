@@ -77,7 +77,8 @@
                     url: '/adminpanel/films',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.films.html'
+                            templateUrl: '/app/views/adminPanel.films.html',
+                            controller: 'adminPanel.filmsCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Add new films, edit or delete the old ones',
@@ -96,7 +97,8 @@
                     url: '/adminpanel/theaters',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.theaters.html'
+                            templateUrl: '/app/views/adminPanel.theaters.html',
+                            controller: 'adminPanel.theatersCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Add new theaters, edit or delete the old ones',
@@ -115,7 +117,8 @@
                     url: '/adminpanel/events',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.events.html'
+                            templateUrl: '/app/views/adminPanel.events.html',
+                            controller: 'adminPanel.eventsCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | Add new events, edit or delete the old ones',
@@ -134,7 +137,8 @@
                     url: '/adminpanel/users',
                     views: {
                         'admin-panel-content-view': {
-                            templateUrl: '/app/views/adminPanel.users.html'
+                            templateUrl: '/app/views/adminPanel.users.html',
+                            controller: 'adminPanel.usersCtrl'
                         }
                     },
                     pageTitle: 'Admin panel | List or delete users',
