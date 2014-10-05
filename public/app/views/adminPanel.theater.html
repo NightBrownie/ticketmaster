@@ -117,15 +117,18 @@
                 <div class="form-control">
                     <div class="edit-halls-container">
                         <div class="add-new-hall-btn-container btn-container">
-                            <a class="btn btn-primary">
+                            <a class="btn btn-primary" ng-click="addNewHall()">
                                 Add the new one
                             </a>
                         </div>
 
-                        <div class="form-control hall-edit-form-container">
+                        <div class="form-control hall-edit-form-container" ng-form="editHallForm"
+                                ng-show="currentEditingHall != null">
                             <div class="input-group edit-theater-name-control-container">
                                 <div class="input-group-addon">Name</div>
-                                <input class="form-control edit-theater-name-control-container">
+                                <input class="form-control edit-theater-name-control-container"
+                                        ng-pattern="validationRegularExpressions.plainText"
+                                        ng-model="currentEditingHall.name">
                             </div>
 
                             <div class="row-list-container form-control">
@@ -133,116 +136,52 @@
                                     <h4>Rows:</h4>
                                 </div>
 
-                                <div class="form-control add-row-container">
+                                <div class="form-control add-row-container" ng-form="addRowForm">
+                                    <div class="input-group new-row-number-container">
+                                        <div class="input-group-addon">Row number</div>
+                                        <span class="form-control">
+                                            {{newHallRow.rowNumber = currentEditingHall.rows.length + 1}}
+                                        </span>
+                                    </div>
                                     <div class="input-group new-row-seats-count-container">
                                         <div class="input-group-addon">Seats count</div>
-                                        <input class="form-control new-row-seats-count">
+                                        <input type="number" ng-required="true" class="form-control new-row-seats-count"
+                                               ng-model="newHallRow.seatsCount" ng-pattern="validationRegularExpressions.rowSeatsCount">
                                     </div>
+
                                     <div class="add-new-row-btn-container">
-                                        <a href="#" class="btn btn-primary">Add row</a>
+                                        <a href="#" class="btn btn-primary" ng-class="{'disabled': !addRowForm.$valid}"
+                                                ng-click="addRow(newHallRow)">
+                                            Add row
+                                        </a>
                                     </div>
                                 </div>
 
                                 <div class="row-list-container">
-                                    <ul class="row-list">
+                                    <ul class="row-list" ng-show="currentEditingHall.rows.length > 0">
                                         <li class="row header-row">
                                             <div class="col-xs-2">#</div>
                                             <div class="col-xs-4">Seats count</div>
                                             <div class="col-xs-6 actions-header">Actions</div>
                                         </li>
 
-                                        <li class="row entiry-row">
-                                            <div class="col-xs-2">1</div>
-                                            <div class="col-xs-4">20</div>
+                                        <li class="row entiry-row" ng-repeat="row in currentEditingHall.rows">
+                                            <div class="col-xs-2">{{row.rowNumber}}</div>
+                                            <div class="col-xs-4">{{row.seatsCount}}</div>
                                             <div class="move-row-up-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-up"
-                                                        title="Move row up">
+                                                <span class="glyphicon glyphicon-arrow-up" ng-hide="row.rowNumber === 1"
+                                                        title="Move row up" ng-click="$parent.moveRowUp(row)">
                                                 </span>
                                             </div>
                                             <div class="move-row-down-action-container col-xs-2">
                                                 <span class="glyphicon glyphicon-arrow-down"
-                                                      title="Move row down">
+                                                      ng-hide="row.rowNumber === $parent.currentEditingHall.rows.length"
+                                                      title="Move row down" ng-click="$parent.moveRowDown(row)">
                                                 </span>
                                             </div>
                                             <div class="col-xs-2 remove-button-container">
                                                 <span class="glyphicon glyphicon-remove-circle"
-                                                        title="Remove">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="row entiry-row">
-                                            <div class="col-xs-2">1</div>
-                                            <div class="col-xs-4">20</div>
-                                            <div class="move-row-up-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-up"
-                                                      title="Move row up">
-                                                </span>
-                                            </div>
-                                            <div class="move-row-down-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-down"
-                                                      title="Move row down">
-                                                </span>
-                                            </div>
-                                            <div class="col-xs-2 remove-button-container">
-                                                <span class="glyphicon glyphicon-remove-circle"
-                                                      title="Remove">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="row entiry-row">
-                                            <div class="col-xs-2">1</div>
-                                            <div class="col-xs-4">20</div>
-                                            <div class="move-row-up-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-up"
-                                                      title="Move row up">
-                                                </span>
-                                            </div>
-                                            <div class="move-row-down-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-down"
-                                                      title="Move row down">
-                                                </span>
-                                            </div>
-                                            <div class="col-xs-2 remove-button-container">
-                                                <span class="glyphicon glyphicon-remove-circle"
-                                                      title="Remove">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="row entiry-row">
-                                            <div class="col-xs-2">1</div>
-                                            <div class="col-xs-4">20</div>
-                                            <div class="move-row-up-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-up"
-                                                      title="Move row up">
-                                                </span>
-                                            </div>
-                                            <div class="move-row-down-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-down"
-                                                      title="Move row down">
-                                                </span>
-                                            </div>
-                                            <div class="col-xs-2 remove-button-container">
-                                                <span class="glyphicon glyphicon-remove-circle"
-                                                      title="Remove">
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="row entiry-row">
-                                            <div class="col-xs-2">1</div>
-                                            <div class="col-xs-4">20</div>
-                                            <div class="move-row-up-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-up"
-                                                      title="Move row up">
-                                                </span>
-                                            </div>
-                                            <div class="move-row-down-action-container col-xs-2">
-                                                <span class="glyphicon glyphicon-arrow-down"
-                                                      title="Move row down">
-                                                </span>
-                                            </div>
-                                            <div class="col-xs-2 remove-button-container">
-                                                <span class="glyphicon glyphicon-remove-circle"
-                                                      title="Remove">
+                                                        title="Remove" ng-click="$parent.removeRow(row)">
                                                 </span>
                                             </div>
                                         </li>
@@ -251,11 +190,11 @@
                             </div>
 
                             <div class="save-form-btn-container">
-                                <a class="btn btn-primary">Save hall</a>
+                                <a class="btn btn-primary" ng-click="saveHall(currentEditingHall)">Save hall</a>
                             </div>
                         </div>
 
-                        <div class="theater-halls-list-container">
+                        <div class="theater-halls-list-container" ng-show="entity.halls.length > 0">
                             <div class="theater-edit-list-header">
                                 <h4>Halls:</h4>
                             </div>
@@ -267,74 +206,22 @@
                                     <span class="column-label col-xs-2">Action</span>
                                 </li>
 
-                                <li class="theater-hall row">
+                                <li class="theater-hall row" ng-repeat="hall in entity.halls">
                                     <div class="thater-hall-name-container col-xs-4">
-                                        <a href="#" class="thater-hall-name">Some theater hall name</a>
+                                        <a href="#" class="thater-hall-name"
+                                                ng-click="startEditHall(hall)">
+                                            {{hall.name}}
+                                        </a>
                                     </div>
                                     <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-rows-count">x</span>
+                                        <span class="theater-hall-rows-count">{{hall.rows.length}}</span>
                                     </div>
                                     <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-seats-count">y</span>
+                                        <span class="theater-hall-seats-count">{{getSeatsCountForHall(hall)}}</span>
                                     </div>
                                     <div class="theater-hall-delete-button-container col-xs-1">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                    </div>
-                                </li>
-                                <li class="theater-hall row">
-                                    <div class="thater-hall-name-container col-xs-4">
-                                        <a href="#" class="thater-hall-name">Some theater hall name</a>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-rows-count">x</span>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-seats-count">y</span>
-                                    </div>
-                                    <div class="theater-hall-delete-button-container col-xs-1">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                    </div>
-                                </li>
-                                <li class="theater-hall row">
-                                    <div class="thater-hall-name-container col-xs-4">
-                                        <a href="#" class="thater-hall-name">Some theater hall name</a>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-rows-count">x</span>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-seats-count">y</span>
-                                    </div>
-                                    <div class="theater-hall-delete-button-container col-xs-1">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                    </div>
-                                </li>
-                                <li class="theater-hall row">
-                                    <div class="thater-hall-name-container col-xs-4">
-                                        <a href="#" class="thater-hall-name">Some theater hall name</a>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-rows-count">x</span>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-seats-count">y</span>
-                                    </div>
-                                    <div class="theater-hall-delete-button-container col-xs-1">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                    </div>
-                                </li>
-                                <li class="theater-hall row">
-                                    <div class="thater-hall-name-container col-xs-4">
-                                        <a href="#" class="thater-hall-name">Some theater hall name</a>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-rows-count">x</span>
-                                    </div>
-                                    <div class="theater-hall-rows-count-container col-xs-3">
-                                        <span class="theater-hall-seats-count">y</span>
-                                    </div>
-                                    <div class="theater-hall-delete-button-container col-xs-1">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <span class="glyphicon glyphicon-remove-circle"
+                                                ng-click="removeHall(hall)"></span>
                                     </div>
                                 </li>
                             </ul>
