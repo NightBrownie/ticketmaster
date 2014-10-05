@@ -43,6 +43,23 @@
                         }
                     }
                 },
+                getUsers: function(startIndex, takenCount) {
+                    return {
+                        url: '/api/user',
+                        method: 'GET',
+                        data: {
+                            startIndex: startIndex,
+                            takenCount: takenCount
+                        }
+                    };
+                },
+                deleteUser: function(id) {
+                    return {
+                        url: '/api/user',
+                        method: 'DELETE',
+                        data: {id: id}
+                    };
+                },
 
                 //definitions endpoints
                 getDefinitions: function() {
@@ -84,6 +101,13 @@
                         data: {film: film}
                     };
                 },
+                deleteFilm: function(id) {
+                    return {
+                        url: '/api/film',
+                        method: 'DELETE',
+                        data: {id: id}
+                    };
+                },
 
                 //theater endpoints
                 getTheater: function(id) {
@@ -117,6 +141,13 @@
                         data: {theater: theater}
                     };
                 },
+                deleteTheater: function(id) {
+                    return {
+                        url: '/api/theater',
+                        method: 'DELETE',
+                        data: {id: id}
+                    };
+                },
 
                 //event endpoints
                 getEvent: function(id) {
@@ -148,6 +179,13 @@
                         url: '/api/event',
                         method: 'PUT',
                         data: {event: event}
+                    };
+                },
+                deleteEvent: function(id) {
+                    return {
+                        url: '/api/event',
+                        method: 'DELETE',
+                        data: {id: id}
                     };
                 }
             };

@@ -1,0 +1,72 @@
+<div class="entities-table">
+    <div class="table-header">
+        <div class="control-panel" ng-show="entities.length > 0 && entityIdPath">
+            <div class="control select-all-btn-control" ng-show="isEntitySelectionEnabled">
+                <button class="select-all-button btn btn-info" ng-click="selectAll()">
+                    Select all
+                </button>
+                <button class="select-all-button btn btn-warning"
+                        ng-show="selectedEntities.length > 0"
+                        ng-click="unselectAll()">
+                    Unselect all
+                </button>
+            </div>
+            <div class="control selected-items-count"
+                 ng-show="isEntitySelectionEnabled && selectedEntities.length > 0">
+                {{selectedEntitiesIds.length}} item{{selectedEntitiesIds.length > 0 ? 's': ''}} selected
+            </div>
+            <div class="control remove-selected-btn-control" ng-show="isRemoveActionEnabled">
+                <button class="select-all-button btn btn-danger" ng-click="removeSelectedEntities()">
+                    Remove selected
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table-content" ng-show="entities.length > 0">
+        <ul class="entities">
+            <li class="entity-container" ng-repeat="entity in entities">
+                <div class="checkbox-container select-container col-xs-1"
+                     ng-show="$parent.entityIdPath && $parent.isEntitySelectionEnabled">
+                    <input type="checkbox" ng-model="$parent.selectedEntitiesIds.indexOf(entity[$parent.entityIdPath]) !== -1"
+                           ng-click="$parent.selectEntity(entity[$parent.entityIdPath])"/>
+                </div>
+                <div class="entity-title-container col-xs-10" ng-show="$parent.entityNamePath">
+                    <a ng-show="$parent.getEditEntityState && $parent.entityIdPath"
+                            ui-sref="getEditEntityState({id: entity[$parent.entityIdPath]})">
+                        {{entity[$parent.entityNamePath]}}
+                    </a>
+                    <span ng-hide="$parent.getEditEntityState && $parent.entityIdPath">
+                        {{entity[$parent.entityNamePath]}}
+                    </span>
+                </div>
+                <div class="entity-action-container col-xs-1"
+                     ng-show="$parent.entityIdPath && $parent.isRemoveActionEnabled">
+                    <div class="remove-action-container">
+                        <span class="glyphicon glyphicon-remove-circle"
+                                ng-click="$parent.removeEntity(entity[$parent.entityIdPath])">
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="table-paging" ng-show="entities.length > 0">
+        <ul class="pagination">
+            <li ng-class="{disabled: currentPageNumber === 0}">
+                <a ng-click="goToPreviousPage()">&laquo;</a>
+            </li>
+            <li ng-repeat="page in getPages()"
+                ng-class="{active: page === $parent.currentPageNumber}">
+                <a ng-click="$parent.goToPage(page)">
+                    {{page + 1}}
+                    <span class="sr-only" ng-show="$parent.currentPageNumber === page">(current)</span>
+                </a>
+            </li>
+            <li>
+                <a ng-click="goToNextPage()" ng-class="{disabled: currentPageNumber === getPagesCount()}">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+    <custom-spinner ng-show="isBusy"></custom-spinner>
+</div>
