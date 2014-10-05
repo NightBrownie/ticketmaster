@@ -36,11 +36,6 @@
         });
     });
 
-    userSchema.pre('remove', function() {
-        console.log('removed user');
-        next(new Error());
-    });
-
     userSchema.methods.comparePassword = function(password, cb) {
         bcrypt.compare(password, this.password, function(err, isMatch) {
             if (err) return cb(err);

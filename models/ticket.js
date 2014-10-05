@@ -1,7 +1,7 @@
 (function(module, undefined) {
     'use strict';
 
-    var mongoose = required('../config/mongooseConfig');
+    var mongoose = require('../config/mongooseConfig');
     var ObjectId = mongoose.Schema.Types.ObjectId;
 
     var ticketSchema = mongoose.Schema({

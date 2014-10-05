@@ -14,6 +14,9 @@
     var accessLevels = require('../modules/authorization/accessLevels');
 
     var UserDAO = require('../models/user');
+    var CommentDAO = require('../models/comment');
+    var LikeDAO = require('../models/like');
+    var TicketDAO = require('../models/ticket');
     var mongoose = require('../config/mongooseConfig');
 
     var getLoggedInUserResponse = function(user) {
@@ -219,15 +222,31 @@
                     return res.send(403);
                 }
 
-                UserDAO.findById(req.query.id)
-                    .remove()
-                    .exec(function(error, data) {
-                        if (error) {
-                            res.send(500);
-                        }
+                async.parallel([
+                    function(cb) {
+                        CommentDAO.find({userId: req.query.id}).remove().exec(cb);
+                    },
+                    function(cb) {
+                        LikeDAO.find({userId: req.query.id}).remove().exec(cb);
+                    },
+                    function(cb) {
+                        TicketDAO.find({userId: req.query.id}).remove().exec(cb);
+                    }
+                ], function(error) {
+                    if (error) {
+                        return res.send(500);
+                    }
 
-                        res.send(200);
-                    });
+                    UserDAO.findById(req.query.id)
+                        .remove()
+                        .exec(function(error, data) {
+                            if (error) {
+                                res.send(500);
+                            }
+
+                            res.send(200);
+                        });
+                });
             } else {
                 res.send(500);
             }

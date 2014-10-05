@@ -32,11 +32,11 @@
                            ng-click="$parent.selectEntity(entity[$parent.entityIdPath])"/>
                 </div>
                 <div class="entity-title-container col-xs-10" ng-show="$parent.entityNamePath">
-                    <a ng-show="$parent.getEditEntityState() && $parent.entityIdPath"
-                            ui-sref="getEditEntityState({id: entity[$parent.entityIdPath]})">
+                    <a ng-show="$parent.editEntityStateName && $parent.entityIdPath"
+                            ng-click="$parent.navigateToState(entity)">
                         {{entity[$parent.entityNamePath]}}
                     </a>
-                    <span ng-hide="$parent.getEditEntityState() && $parent.entityIdPath">
+                    <span ng-hide="$parent.editEntityStateName && $parent.entityIdPath">
                         {{entity[$parent.entityNamePath]}}
                     </span>
                 </div>

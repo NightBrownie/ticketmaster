@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('directives')
-        .controller('entityAdminTableCtrl', ['$scope', '$http',
-            function($scope, $http) {
+        .controller('entityAdminTableCtrl', ['$scope', '$http', '$state',
+            function($scope, $http, $state) {
                 $scope.entities = [];
                 $scope.selectedEntitiesIds = [];
                 $scope.entitiesCount = 0;
@@ -136,6 +136,12 @@
                     }
                 };
 
+                $scope.navigateToState = function(entity) {
+                    if ($scope.editEntityStateName) {
+                        $state.go($scope.editEntityStateName, {id: entity[$scope.entityIdPath]});
+                    }
+                };
+
                 loadEntities();
             }])
         .directive('entityAdminTable', [function() {
@@ -150,7 +156,7 @@
 
                         //links settings
                         //should have format: '/some/entity/{:id}'
-                        getEditEntityState: '&',
+                        editEntityStateName: '@',
 
                         //paging settings
                         entitiesOnPageCount: '=',
