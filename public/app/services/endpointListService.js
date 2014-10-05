@@ -57,7 +57,7 @@
                     return {
                         url: '/api/user',
                         method: 'DELETE',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
 

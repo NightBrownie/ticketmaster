@@ -48,15 +48,15 @@
                 };
 
                 $scope.unselectAll = function() {
-                    $scope.selectedEntities = [];
+                    $scope.selectedEntitiesIds = [];
                 };
                 $scope.selectAll = function() {
-                    if (entityIdPath) {
+                    if ($scope.entityIdPath) {
                         for (var i = 0; i < $scope.entities.length; i++) {
-                            var entityId = ($scope.entities[i])[entityIdPath];
+                            var entityId = ($scope.entities[i])[$scope.entityIdPath];
 
-                            if ($scope.selectedEntities.indexOf(entityId) === -1) {
-                                $scope.selectedEntities.push(entityId);
+                            if ($scope.selectedEntitiesIds.indexOf(entityId) === -1) {
+                                $scope.selectedEntitiesIds.push(entityId);
                             }
                         }
                     }
@@ -82,9 +82,12 @@
 
                 $scope.removeEntity = function(entityId) {
                     if (entityId) {
-                        var endpoint = getRemoveEntityEndpoint()(entityId);
+                        $scope.isBusy = true;
+                        var endpoint = $scope.getRemoveEntityEndpoint()(entityId);
 
                         if (!endpoint) {
+                            $scope.isBusy = false;
+
                             //TODO: replace with toastr call to inform user about error
                             return console.log('Endpoint cannot be created');
                         }
@@ -92,6 +95,8 @@
                         $http(endpoint).success(function(data, status) {
                             loadEntities();
                         }).error(function(error, status) {
+                            $scope.isBusy = false;
+
                             //TODO: replace with toastr call to inform user about error
                             if (status === 500) {
                                 return console.log('An error occurred during deletion process: ', error);
@@ -114,7 +119,7 @@
                 };
 
                 $scope.goToPage = function(page) {
-                    if (page > 0 && page < $scope.getPagesCount() && $scope.currentPageNumber !== page) {
+                    if (page >= 0 && page < $scope.getPagesCount() && $scope.currentPageNumber !== page) {
                         $scope.currentPageNumber = page;
                         loadEntities();
                     }
@@ -126,7 +131,7 @@
                     }
                 };
                 $scope.goToPreviousPage = function() {
-                    if ($scope.currentPageNumber > 0) {
+                    if ($scope.currentPageNumber >= 0) {
                         $scope.goToPage($scope.currentPageNumber - 1);
                     }
                 };

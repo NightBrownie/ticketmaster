@@ -14,9 +14,12 @@
     var accessLevels = require('../modules/authorization/accessLevels');
 
     var UserDAO = require('../models/user');
+    var mongoose = require('../config/mongooseConfig');
 
     var getLoggedInUserResponse = function(user) {
         var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: secret.jwt.expiresInMins });
+
+        delete user.__id;
 
         return {
             token: token,
@@ -37,7 +40,6 @@
                 username: username
             },
             {
-                _id: 0,
                 password: 0,
                 __v: 0
             },
@@ -52,7 +54,6 @@
                                 email: username
                             },
                             {
-                                _id: 0,
                                 password: 0,
                                 __v: 0
                             },
@@ -199,9 +200,33 @@
                         }
 
                         res.json({
-                            entities: data,
-                            entitiesCount: data.length
+                            entities: data[1],
+                            entitiesCount: data[0]
                         });
+                    });
+            } else {
+                res.send(500);
+            }
+        });
+
+    router.delete('/user',
+        authenticationChecker(), accessRoleChecker(accessLevels.accessLevels.administrator),
+        function(req, res) {
+            if (req.query.id !== undefined) {
+                var userId = new mongoose.Schema.Types.ObjectId(req.query.id);
+
+                if (req.user._id === req.query.id) {
+                    return res.send(403);
+                }
+
+                UserDAO.findById(req.query.id)
+                    .remove()
+                    .exec(function(error, data) {
+                        if (error) {
+                            res.send(500);
+                        }
+
+                        res.send(200);
                     });
             } else {
                 res.send(500);

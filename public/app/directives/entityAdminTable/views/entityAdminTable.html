@@ -6,16 +6,17 @@
                     Select all
                 </button>
                 <button class="select-all-button btn btn-warning"
-                        ng-show="selectedEntities.length > 0"
+                        ng-show="selectedEntitiesIds.length > 0"
                         ng-click="unselectAll()">
                     Unselect all
                 </button>
             </div>
             <div class="control selected-items-count"
-                 ng-show="isEntitySelectionEnabled && selectedEntities.length > 0">
+                 ng-show="isEntitySelectionEnabled && selectedEntitiesIds.length > 0">
                 {{selectedEntitiesIds.length}} item{{selectedEntitiesIds.length > 0 ? 's': ''}} selected
             </div>
-            <div class="control remove-selected-btn-control" ng-show="isRemoveActionEnabled">
+            <div class="control remove-selected-btn-control"
+                 ng-show="isRemoveActionEnabled && selectedEntitiesIds.length > 0">
                 <button class="select-all-button btn btn-danger" ng-click="removeSelectedEntities()">
                     Remove selected
                 </button>
