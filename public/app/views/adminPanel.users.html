@@ -5,7 +5,10 @@
         </div>
 
         <div class="entities-list-container">
-            <entity-admin-table></entity-admin-table>
+            <entity-admin-table entity-id-path="__id" entity-name-path="username"
+                                get-get-entities-endpoint="endpointListService.getUsers"
+                                entities-on-page-count="1">
+            </entity-admin-table>
         </div>
     </div>
 </div>

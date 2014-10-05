@@ -7,7 +7,11 @@
     var secret = require('../config/secret');
     var jwt = require('jsonwebtoken');
 
+    var async = require('async');
+
     var authenticationChecker = require('../modules/authentication/authenticationChecker');
+    var accessRoleChecker = require('../modules/authorization/accessRoleChecker');
+    var accessLevels = require('../modules/authorization/accessLevels');
 
     var UserDAO = require('../models/user');
 
@@ -174,6 +178,35 @@
                 res.json(user);
             });
     });
+
+    //get one user or user list
+    router.get('/user',
+        authenticationChecker(), accessRoleChecker(accessLevels.accessLevels.administrator),
+        function(req, res) {
+            if (req.query.skip && req.query.limit) {
+                async.parallel([
+                    function(cb) { UserDAO.count({}, cb); },
+                    function(cb) {
+                        UserDAO.find({})
+                            .select('__id username')
+                            .skip(req.query.skip)
+                            .limit(req.query.limit)
+                            .exec(cb);
+                    }],
+                    function(error, data) {
+                        if (error) {
+                            res.send(500);
+                        }
+
+                        res.json({
+                            entities: data,
+                            entitiesCount: data.length
+                        });
+                    });
+            } else {
+                res.send(500);
+            }
+        });
 
     module.exports = router;
 })(module);

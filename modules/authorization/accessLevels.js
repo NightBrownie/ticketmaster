@@ -18,13 +18,9 @@
             administrator: userRoles.administrator //100
         },
 
-        hasAccessLevel: function(accessLevel) {
-            if (isNumber(accessLevel) && (this.role & accessLevel))
-            {
-                cb(null, true);
-            } else {
-                cb(null, false);
-            }
+        hasAccessLevel: function(role, accessLevel) {
+            return typeof accessLevel === 'number' && typeof role === 'number'
+                && (role & accessLevel);
         }
     };
 })(module);

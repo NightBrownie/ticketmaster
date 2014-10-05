@@ -8,16 +8,19 @@
                 $scope.selectedEntitiesIds = [];
                 $scope.entitiesCount = 0;
                 $scope.currentPageNumber = 0;
-                $scope.entitiesOnPageCount = $scope.entitiesOnPageCount || 10; //set default value
 
                 $scope.isBusy = true;
 
                 var loadEntities = function() {
-                    var startIndex = $scope.currentPageNumber * $scope.entitiesOnPageCount;
-                    var takenCount = $scope.entitiesOnPageCount;
-                    var endpoint = $scope.getGetEntitiesEndpoint(startIndex, takenCount);
-
                     $scope.isBusy = true;
+
+                    if(!$scope.getGetEntitiesEndpoint()){
+                        return $scope.isBusy = false;
+                    }
+
+                    var skip = $scope.currentPageNumber * $scope.getEntitiesOnPageCount();
+                    var limit = $scope.getEntitiesOnPageCount();
+                    var endpoint = $scope.getGetEntitiesEndpoint()(skip, limit);
 
                     $http(endpoint).success(function(data, status) {
                         /*the data format should match:
@@ -32,16 +35,18 @@
                      }).error(function(error, status) {
                         //TODO: replace with toastr call
                         if (status === 500) {
-                            return console.log('An error occurred during entity list getting process: ', error);
+                            console.log('An error occurred during entity list getting process: ', error);
                         }
 
                         $scope.isBusy = false;
                     });
                 };
 
-                loadEntities();
-
                 //methods
+                $scope.getEntitiesOnPageCount = function() {
+                    return $scope.entitiesOnPageCount || 10;
+                };
+
                 $scope.unselectAll = function() {
                     $scope.selectedEntities = [];
                 };
@@ -77,7 +82,7 @@
 
                 $scope.removeEntity = function(entityId) {
                     if (entityId) {
-                        var endpoint = getRemoveEntityEndpoint(entityId);
+                        var endpoint = getRemoveEntityEndpoint()(entityId);
 
                         if (!endpoint) {
                             //TODO: replace with toastr call to inform user about error
@@ -96,12 +101,12 @@
                 };
 
                 $scope.getPagesCount = function() {
-                    return Math.ceil($scope.entitiesCount/$scope.entitiesOnPageCount);
+                    return Math.ceil($scope.entitiesCount/$scope.getEntitiesOnPageCount());
                 };
                 $scope.getPages = function() {
                     var pages = [];
 
-                    for (var i = 0; i < $scope.entitiesCount; i++) {
+                    for (var i = 0; i < $scope.getPagesCount(); i++) {
                         pages.push(i);
                     }
 
@@ -125,6 +130,8 @@
                         $scope.goToPage($scope.currentPageNumber - 1);
                     }
                 };
+
+                loadEntities();
             }])
         .directive('entityAdminTable', [function() {
                 return {
@@ -141,7 +148,7 @@
                         getEditEntityState: '&',
 
                         //paging settings
-                        entitiesOnPageCount: '@',
+                        entitiesOnPageCount: '=',
 
                         //entity options
                         entityIdPath: '@',

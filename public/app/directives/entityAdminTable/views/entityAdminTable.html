@@ -27,15 +27,15 @@
             <li class="entity-container" ng-repeat="entity in entities">
                 <div class="checkbox-container select-container col-xs-1"
                      ng-show="$parent.entityIdPath && $parent.isEntitySelectionEnabled">
-                    <input type="checkbox" ng-model="$parent.selectedEntitiesIds.indexOf(entity[$parent.entityIdPath]) !== -1"
+                    <input type="checkbox" ng-checked="$parent.selectedEntitiesIds.indexOf(entity[$parent.entityIdPath]) !== -1"
                            ng-click="$parent.selectEntity(entity[$parent.entityIdPath])"/>
                 </div>
                 <div class="entity-title-container col-xs-10" ng-show="$parent.entityNamePath">
-                    <a ng-show="$parent.getEditEntityState && $parent.entityIdPath"
+                    <a ng-show="$parent.getEditEntityState() && $parent.entityIdPath"
                             ui-sref="getEditEntityState({id: entity[$parent.entityIdPath]})">
                         {{entity[$parent.entityNamePath]}}
                     </a>
-                    <span ng-hide="$parent.getEditEntityState && $parent.entityIdPath">
+                    <span ng-hide="$parent.getEditEntityState() && $parent.entityIdPath">
                         {{entity[$parent.entityNamePath]}}
                     </span>
                 </div>
@@ -50,7 +50,7 @@
             </li>
         </ul>
     </div>
-    <div class="table-paging" ng-show="entities.length > 0">
+    <div class="table-paging" ng-show="entities.length > 0 && getPagesCount() > 1">
         <ul class="pagination">
             <li ng-class="{disabled: currentPageNumber === 0}">
                 <a ng-click="goToPreviousPage()">&laquo;</a>
@@ -62,8 +62,8 @@
                     <span class="sr-only" ng-show="$parent.currentPageNumber === page">(current)</span>
                 </a>
             </li>
-            <li>
-                <a ng-click="goToNextPage()" ng-class="{disabled: currentPageNumber === getPagesCount()}">&raquo;</a>
+            <li ng-class="{disabled: (currentPageNumber + 1) === getPagesCount()}">
+                <a ng-click="goToNextPage()">&raquo;</a>
             </li>
         </ul>
     </div>

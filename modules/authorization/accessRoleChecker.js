@@ -5,7 +5,7 @@
 
     module.exports = function(accessLevel) {
         return function (req, res, next) {
-            if (accessLevels.hasAccessLevel(accessLevel)) {
+            if (accessLevels.hasAccessLevel(req.user.role, accessLevel)) {
                 return next();
             }
 

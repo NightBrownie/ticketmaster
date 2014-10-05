@@ -43,13 +43,13 @@
                         }
                     }
                 },
-                getUsers: function(startIndex, takenCount) {
+                getUsers: function(skip, limit) {
                     return {
                         url: '/api/user',
                         method: 'GET',
-                        data: {
-                            startIndex: startIndex,
-                            takenCount: takenCount
+                        params: {
+                            skip: skip,
+                            limit: limit
                         }
                     };
                 },
@@ -74,16 +74,16 @@
                     return {
                         url: '/api/film',
                         method: 'GET',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
-                getFilms: function(startIndex, takenCount) {
+                getFilms: function(skip, limit) {
                     return {
                         url: '/api/film',
                         method: 'GET',
-                        data: {
-                            startIndex: startIndex,
-                            takenCount: takenCount
+                        params: {
+                            skip: skip,
+                            limit: limit
                         }
                     };
                 },
@@ -114,16 +114,16 @@
                     return {
                         url: '/api/theater',
                         method: 'GET',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
-                getTheaters: function(startIndex, takenCount) {
+                getTheaters: function(skip, limit) {
                     return {
                         url: '/api/theater',
                         method: 'GET',
-                        data: {
-                            startIndex: startIndex,
-                            takenCount: takenCount
+                        params: {
+                            skip: skip,
+                            limit: limit
                         }
                     };
                 },
@@ -154,16 +154,16 @@
                     return {
                         url: '/api/event',
                         method: 'GET',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
-                getEvents: function(startIndex, takenCount) {
+                getEvents: function(skip, limit) {
                     return {
                         url: '/api/event',
                         method: 'GET',
-                        data: {
-                            startIndex: startIndex,
-                            takenCount: takenCount
+                        params: {
+                            skip: skip,
+                            limit: limit
                         }
                     };
                 },
