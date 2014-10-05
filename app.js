@@ -18,7 +18,10 @@ var secret = require('./config/secret');
 var routes = require('./routes/index');
 //api controllers
 var userRoutes = require('./routes/user');
-var definitions = require('./routes/definitions');
+var filmsRoutes = require('./routes/film');
+var theaterRoutes = require('./routes/theater');
+var eventRoutes = require('./routes/event');
+var definitionsRoutes = require('./routes/definitions');
 
 var app = express();
 
@@ -46,7 +49,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //api controllers routers
 app.use('/api',userRoutes);
-app.use('/api', definitions);
+app.use('/api', filmsRoutes);
+app.use('/api', theaterRoutes);
+app.use('/api', eventRoutes);
+app.use('/api', definitionsRoutes);
 
 //default route
 app.use('/*', routes);
