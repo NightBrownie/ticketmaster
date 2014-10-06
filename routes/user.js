@@ -22,7 +22,7 @@
     var getLoggedInUserResponse = function(user) {
         var token = jwt.sign(user, secret.jwt.keyPhrase, { expiresInMinutes: secret.jwt.expiresInMins });
 
-        delete user.__id;
+        delete user._id;
 
         return {
             token: token,
@@ -192,7 +192,7 @@
                     function(cb) { UserDAO.count({}, cb); },
                     function(cb) {
                         UserDAO.find({})
-                            .select('__id username')
+                            .select('_id username')
                             .skip(req.query.skip)
                             .limit(req.query.limit)
                             .exec(cb);
@@ -216,8 +216,6 @@
         authenticationChecker(), accessRoleChecker(accessLevels.accessLevels.administrator),
         function(req, res) {
             if (req.query.id !== undefined) {
-                var userId = new mongoose.Schema.Types.ObjectId(req.query.id);
-
                 if (req.user._id === req.query.id) {
                     return res.send(403);
                 }

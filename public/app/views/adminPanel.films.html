@@ -13,92 +13,13 @@
         </div>
 
         <div class="entities-list-container">
-            <div class="entities-table">
-                <div class="table-header">
-                    <div class="control-panel">
-                        <div class="control select-all-btn-control">
-                            <button class="select-all-button btn btn-info">Select all</button>
-                            <button class="select-all-button btn btn-warning">Unselect all</button>
-                        </div>
-                        <div class="control selected-items-count">
-                            0 items selected
-                        </div>
-                        <div class="control remove-selected-btn-control">
-                            <button class="select-all-button btn btn-danger">Remove selected</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-content">
-                    <ul class="entities">
-                        <li class="entity-container">
-                            <div class="checkbox-container select-container col-xs-1">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="entity-title-container col-xs-10">
-                                <a href="#">Some entity title</a>
-                            </div>
-                            <div class="entity-action-container col-xs-1">
-                                <div class="remove-action-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="entity-container">
-                            <div class="checkbox-container select-container col-xs-1">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="entity-title-container col-xs-10">
-                                <a href="#">Some entity title</a>
-                            </div>
-                            <div class="entity-action-container col-xs-1">
-                                <div class="remove-action-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="entity-container">
-                            <div class="checkbox-container select-container col-xs-1">
-                                <input type="checkbox"/>
-                            </div>
-                            <div class="entity-title-container col-xs-10">
-                                <a href="#">Some entity title</a>
-                            </div>
-                            <div class="entity-action-container col-xs-1">
-                                <div class="remove-action-container">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="table-paging">
-                    <ul class="pagination">
-                        <li class="disabled">
-                            <a href="#">&laquo;</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">1 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li>
-                            <a href="#">2</a></li>
-                        <li>
-                            <a href="#">3</a></li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">&raquo;</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <entity-admin-table entity-id-path="_id" entity-name-path="name"
+                                get-get-entities-endpoint="endpointListService.getFilms"
+                                is-remove-action-enabled="true"
+                                get-remove-entity-endpoint="endpointListService.deleteFilm"
+                                is-entity-selection-enabled="true"
+                                edit-entity-state-name="main.adminPanel.film">
+            </entity-admin-table>
         </div>
     </div>
 </div>

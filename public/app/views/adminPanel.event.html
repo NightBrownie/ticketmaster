@@ -2,13 +2,13 @@
     <div class="entity-edit-form-container">
         <form class="entity-edit-form event-edit-form form-horizontal" role="form" name="editEventForm">
             <div class="form-header">
-                <div class="add-new-entity-form-header" ng-show="entity.__id === undefined">Add the new event</div>
-                <div class="edit-entity-form-header" ng-hide="entity.__id === undefined">Edit event</div>
+                <div class="add-new-entity-form-header" ng-show="entity._id === undefined">Add the new event</div>
+                <div class="edit-entity-form-header" ng-hide="entity._id === undefined">Edit event</div>
             </div>
 
-            <div class="input-group control-container entity-id-container" ng-hide="entity.__id === undefined">
+            <div class="input-group control-container entity-id-container" ng-hide="entity._id === undefined">
                 <div class="input-group-addon">ID</div>
-                <p class="form-control form-control-static">{{entity.__id}}</p>
+                <p class="form-control form-control-static">{{entity._id}}</p>
             </div>
             <div class="input-group control-container event-date-container datepicker-conainer">
                 <div class="input-group-addon">Date</div>
@@ -45,7 +45,7 @@
                     Save changes
                 </button>
                 <a ui-sref="main.adminPanel.events" class="form-control btn btn-warning">List entities</a>
-                <button class="form-control btn btn-danger" ng-show="entity.__id !== undefined"
+                <button class="form-control btn btn-danger" ng-show="entity._id !== undefined"
                         ng-click="removeEvent(entity)">
                     Remove
                 </button>

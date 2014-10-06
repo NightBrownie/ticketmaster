@@ -3,11 +3,11 @@
         <form class="entity-edit-form film-edit-form form-horizontal" role="form"
               name="filmEditForm" ng-show="entity !== undefined">
             <div class="form-header">
-                <div class="add-new-entity-form-header" ng-hide="entity.__id !== undefined">Add the new film</div>
-                <div class="edit-entity-form-header" ng-show="entity.__id !== undefined">Edit film</div>
+                <div class="add-new-entity-form-header" ng-hide="entity._id !== undefined">Add the new film</div>
+                <div class="edit-entity-form-header" ng-show="entity._id !== undefined">Edit film</div>
             </div>
 
-            <div class="input-group control-container">
+            <div class="input-group control-container" ng-model="entity.mainImageUrl" ng-required="true">
                 <div class="input-group-addon">Film cover</div>
                 <div class="form-control">
                     <div class="thumbnail main-image-thumbnail">
@@ -16,7 +16,9 @@
 
                         <div class="input-group" ng-show="entity.mainImageUrl != ''">
                             <div class="input-group-addon">Current url</div>
-                            <span class="form-control">{{entity.mainImageUrl}}</span>
+                            <span class="form-control">
+                                {{entity.mainImageUrl}}
+                            </span>
                         </div>
 
                         <div class="input-group" ng-form="updateMainImageUrlForm">
@@ -33,9 +35,9 @@
                     </div>
                 </div>
             </div>
-            <div class="input-group control-container entity-id-container" ng-show="entity.__id !== undefined">
+            <div class="input-group control-container entity-id-container" ng-show="entity._id !== undefined">
                 <div class="input-group-addon">ID</div>
-                <p class="form-control form-control-static">{{entity.__id}}</p>
+                <p class="form-control form-control-static">{{entity._id}}</p>
             </div>
             <div class="input-group control-container film-title-container dropdown-container">
                 <div class="input-group-addon">Title</div>
@@ -170,7 +172,7 @@
                     Save changes
                 </button>
                 <a ui-sref="main.adminPanel.films" class="form-control btn btn-warning">List entities</a>
-                <button class="form-control btn btn-danger" ng-show="entity.__id !== undefined"
+                <button class="form-control btn btn-danger" ng-show="entity._id !== undefined"
                         ng-click="removeFilm(entity)">
                     Remove
                 </button>

@@ -8,8 +8,8 @@
                 $urlRouterProvider.otherwise(routingParameters.defaultRoute);
 
                 var getCheckAuthForRouteFactory = function(accessLevel) {
-                    return ['$q', 'accessLevels', 'authService', '$rootScope', '$state', '$stateParams',
-                        function($q, accessLevels, authService, $rootScope, $state, $stateParams) {
+                    return ['$q', 'accessLevels', 'authService', '$rootScope', '$state', '$stateParams', 'customEvents',
+                        function($q, accessLevels, authService, $rootScope, $state, $stateParams, customEvents) {
                             var deferred = $q.defer();
 
                             authService.checkAuthorization(accessLevel)

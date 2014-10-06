@@ -3,48 +3,68 @@
 
     angular.module('ticket-master')
         .controller('adminPanel.filmCtrl', ['$scope', '$stateParams', 'definitionsService', '$state', 'routingParameters',
-                'validationRegularExpressions',
-            function($scope, $stateParams, definitionsService, $state, routingParameters, validationRegularExpressions) {
+                'validationRegularExpressions', 'endpointListService', '$http',
+            function($scope, $stateParams, definitionsService, $state, routingParameters, validationRegularExpressions,
+                    endpointListService, $http) {
                 $scope.isBusy = true;
                 $scope.newCoverImageUrl = '';
                 $scope.newActorName = '';
                 $scope.newFrameUrl = '';
+                $scope.entity = {};
                 $scope.validationRegularExpressions = validationRegularExpressions;
 
                 var filmId = $stateParams.id;
 
+
                 definitionsService.getDefinitions().then(function(definitions) {
                     $scope.definitions = definitions;
 
+                    var defaultEntity = {
+                        name: '',
+                        description: '',
+                        mainImageUrl: '',
+                        frameUrls: [],
+                        country: definitions.countriesSelectOptions[0],
+                        year: definitions.filmProductionYearsSelectOptions[0],
+                        length: {
+                            hours: definitions.hoursSelectOptions[0],
+                            minutes: definitions.minutesSelectOptions[0],
+                            seconds: definitions.secondsSelectOptions[0]
+                        },
+                        genre: '',
+                        director: '',
+                        mainActors: [],
+                        ageRestriction: definitions.ageRestrictionsSelectOptions[0]
+                    };
+
+                    var setDefaultFieldsValue = function() {
+                        for (var property in defaultEntity) {
+                            if ($scope.entity[property] == null) {
+                                $scope.entity[property] = defaultEntity[property];
+                            }
+                        }
+                    };
+
                     //check for id and decide if it is a new entity creation or existing entity editing
                     if (filmId) {
-                        //call $http service to get filmInfo
+                        $http(endpointListService.getFilm(filmId))
+                            .success(function(data, status) {
+                                $scope.entity = data;
+                                setDefaultFieldsValue();
+                                $scope.isBusy = false;
+                            }).error(function(error, status) {
+                                console.log('An error occurred during film loading process: ' , error);
+                                $state.go(routingParameters.adminPanelParams.filmsState);
+                                $scope.isBusy = false;
+                            });
                     } else  {
                         $scope.isBusy = false;
 
-                        //get definitions and save them into scope variable
-
                         //set default entity structure
-                        $scope.entity = {
-                            name: '',
-                            description: '',
-                            mainImageUrl: '',
-                            frameUrls: [],
-                            country: definitions.countriesSelectOptions[0],
-                            year: definitions.filmProductionYearsSelectOptions[0],
-                            length: {
-                                hours: definitions.hoursSelectOptions[0],
-                                minutes: definitions.minutesSelectOptions[0],
-                                seconds: definitions.secondsSelectOptions[0]
-                            },
-                            genre: '',
-                            director: '',
-                            mainActors: [],
-                            ageRestriction: definitions.ageRestrictionsSelectOptions[0]
-                        };
+                        setDefaultFieldsValue();
                     }
                 }, function(error) {
-                    $state.go(routingParameters.defaultState);
+                    $state.go(routingParameters.adminPanelParams.filmsState);
                 });
 
                 //methods
@@ -86,13 +106,55 @@
 
                 $scope.saveFilm = function(film) {
                     if ($scope.filmEditForm.$valid) {
-                        console.log('film saved');
+                        if ($scope.entity._id) {
+                            $http(endpointListService.putFilm($scope.entity))
+                                .success(function(data, status) {
+                                    console.log('The film data is saved'); //TODO: replace with toastr call
+                                    $state.go(routingParameters.adminPanelParams.filmsState);
+                                }).error(function(error, status) {
+                                    console.log(error); //TODO: replace with toastr call
+                                });
+                        } else {
+                            $http(endpointListService.postFilm($scope.entity))
+                                .success(function(data, status) {
+                                    console.log('The film data is saved'); //TODO: replace with toastr call
+                                    $state.go(routingParameters.adminPanelParams.filmsState);
+                                }).error(function(error, status) {
+                                    console.log(error); //TODO: replace with toastr call
+                                });
+                        }
                     }
                 };
 
                 $scope.removeFilm = function(film) {
-                    console.log('film removed');
+                    var entityId = film._id;
+                    if (!entityId) {
+                        return;
+                    }
+
+                    if (entityId) {
+                        $scope.isBusy = true;
+                        var endpoint = endpointListService.deleteFilm(entityId);
+
+                        if (!endpoint) {
+                            $scope.isBusy = false;
+
+                            //TODO: replace with toastr call to inform user about error
+                            return console.log('Endpoint cannot be created');
+                        }
+
+                        $http(endpoint).success(function(data, status) {
+                            $state.go(routingParameters.adminPanelParams.filmsState);
+                            $scope.isBusy = false;
+                        }).error(function(error, status) {
+                            $scope.isBusy = false;
+
+                            //TODO: replace with toastr call to inform user about error
+                            if (status === 500) {
+                                return console.log('An error occurred during deletion process: ', error);
+                            }
+                        });
+                    }
                 };
             }]);
 })(window);
-

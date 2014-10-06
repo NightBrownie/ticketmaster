@@ -43,6 +43,7 @@
                         }
                     }
                 },
+
                 getUsers: function(skip, limit) {
                     return {
                         url: '/api/user',
@@ -105,7 +106,7 @@
                     return {
                         url: '/api/film',
                         method: 'DELETE',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
 
@@ -145,7 +146,7 @@
                     return {
                         url: '/api/theater',
                         method: 'DELETE',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 },
 
@@ -185,7 +186,7 @@
                     return {
                         url: '/api/event',
                         method: 'DELETE',
-                        data: {id: id}
+                        params: {id: id}
                     };
                 }
             };

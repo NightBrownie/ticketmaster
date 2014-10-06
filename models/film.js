@@ -7,7 +7,7 @@
         name: {type: String, required: true},
         description: {type: String, required: true},
         mainImageUrl: {type: String, required: true},
-        frameUrls: {type: [String], required: true},
+        frameUrls: {type: [String]},
         country: {type: String},
         year: {type: Number}, //TODO: add min and max as value from config
         length: { //TODO: set custom validation for values
@@ -18,9 +18,9 @@
             },
             required: true
         },
-        genre: {type: String, required: true},
+        genre: {type: String},
         director: {type: String},
-        mainActors: {type: [String], required: true},
+        mainActors: {type: [String]},
         ageRestriction: {type: Number, required: true, default: 3} //set from the config
     });
 

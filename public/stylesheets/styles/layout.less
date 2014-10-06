@@ -13,6 +13,14 @@
 
 form {
   &.ng-invalid {
+    .input-group.ng-invalid {
+      & > .input-group-addon,
+      & > .form-control {
+        border-color: @validationColor1;
+        .box-shadow(0 0 8px @validationColor1;);
+      }
+    }
+
     & > div {
       input,
       textarea {
