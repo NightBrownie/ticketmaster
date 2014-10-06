@@ -7,7 +7,6 @@
         function($q, authTokenService, $http, $rootScope, accessLevels, endpointListService, customEvents) {
             var currentUserInfo;
             var userInfoPromise;
-            var authorizationPromise;
 
             var getDefaultUserInfo = function() {
                 return {
@@ -37,7 +36,7 @@
 
                 if (isCurrentUserAuthenticated()) {
                     //check if user info is already loaded
-                    if (isCurrentUserAuthorized(accessLevels.accessLevel.authenticated)) {
+                    if (isCurrentUserAuthorized(accessLevels.accessLevels.authenticated)) {
                         deferred.resolve(currentUserInfo);
                     } else {
                         $http(endpointListService.getCurrentUserInfo())
@@ -70,7 +69,7 @@
 
             var isCurrentUserAuthorized = function(accessLevel) {
                 return typeof accessLevel === 'number'
-                    && (currentUserInfo.role & accessLevel);
+                    && !!(currentUserInfo.role & accessLevel);
             };
 
             setDefaultUserInfo();
@@ -129,21 +128,15 @@
                 },
 
                 checkAuthorization: function(accessLevel) {
-                    if (authorizationPromise) {
-                        return authorizationPromise;
-                    }
-
                     var deferred = $q.defer();
 
-                    getCurrentUserInfo.then(function(userInfo){
+                    getCurrentUserInfo().then(function(userInfo){
                         deferred.resolve(isCurrentUserAuthorized(accessLevel));
-                        authorizationPromise = null;
                     },function(error) {
                         deferred.reject(error);
-                        authorizationPromise = null;
                     });
 
-                    return authorizationPromise = deferred.promise;
+                    return deferred.promise;
                 },
 
                 getUserInfo: function() {

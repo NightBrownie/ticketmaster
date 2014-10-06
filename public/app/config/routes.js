@@ -2,31 +2,33 @@
     'use strict';
 
     angular.module('ticket-master')
-        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters', 'accessLevels', '$q',
-            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters, accessLevels, $q) {
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters', 'accessLevels',
+            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters, accessLevels) {
                 //default route
                 $urlRouterProvider.otherwise(routingParameters.defaultRoute);
 
-                var checkAuthForRoute = function() {
-                    var deferred = $q.defer();
+                var getCheckAuthForRouteFactory = function(accessLevel) {
+                    return ['$q', 'accessLevels', 'authService', '$rootScope', '$state', '$stateParams',
+                        function($q, accessLevels, authService, $rootScope, $state, $stateParams) {
+                            var deferred = $q.defer();
 
-                    //TODO: read from the route
-                    var accessLevel = accessLevels.accessLevels.public;
-
-                    authService.checkAuthorization(accessLevel)
-                        .then(function(isAuthorized) {
-                            if (isAuthorized) {
-                                deferred.resolve(isAuthorized);
-                            } else {
-                                deferred.reject(isAuthorized);
-                                $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
-                            }
-                        }, function(error) {
-                            deferred.reject(error);
-                            $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
-                        });
-
-                    return deferred.promise();
+                            authService.checkAuthorization(accessLevel)
+                                .then(function(isAuthorized) {
+                                    if (isAuthorized) {
+                                        deferred.resolve(isAuthorized);
+                                    } else {
+                                        deferred.reject(isAuthorized);
+                                        $state.go(routingParameters.defaultState);
+                                        $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                                    }
+                                }, function(error) {
+                                    deferred.reject(error);
+                                    $state.go(routingParameters.defaultState);
+                                    $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                                });
+        
+                            return deferred.promise;
+                        }];
                 };
 
                 //states
@@ -61,9 +63,8 @@
                     },
                     pageTitle: 'User Profile | Manage your account and get actual information',
                     resolve: {
-                        auth: checkAuthForRoute
-                    },
-                    accessLevel: accessLevels.accessLevels.authenticated
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.authenticated)
+                    }
                 }).state('main.schedule', {
                     url: '/schedule',
                     views: {
@@ -107,7 +108,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Add new films, edit or delete the old ones',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.film', {
                     url: '/adminpanel/film/:id',
                     views: {
@@ -117,7 +120,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Edit film data',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.theaters', {
                     url: '/adminpanel/theaters',
                     views: {
@@ -127,7 +132,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Add new theaters, edit or delete the old ones',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.theater', {
                     url: '/adminpanel/theater/:id',
                     views: {
@@ -137,7 +144,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Edit theater data',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.events', {
                     url: '/adminpanel/events',
                     views: {
@@ -147,7 +156,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Add new events, edit or delete the old ones',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.event', {
                     url: '/adminpanel/event/:id',
                     views: {
@@ -157,7 +168,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | Edit event data',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 }).state('main.adminPanel.users', {
                     url: '/adminpanel/users',
                     views: {
@@ -167,7 +180,9 @@
                         }
                     },
                     pageTitle: 'Admin panel | List or delete users',
-                    accessLevel: accessLevels.accessLevels.administrator
+                    resolve: {
+                        auth: getCheckAuthForRouteFactory(accessLevels.accessLevels.administrator)
+                    }
                 });
 
                 $locationProvider.html5Mode(true);
