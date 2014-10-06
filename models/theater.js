@@ -23,8 +23,7 @@
         },
         phoneNumber: {type: String},
         photos: {
-            type: [String],
-            required: true
+            type: [String]
         },
         halls: {
             type: [{

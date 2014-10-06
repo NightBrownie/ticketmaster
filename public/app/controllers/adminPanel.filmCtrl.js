@@ -71,6 +71,7 @@
                 $scope.saveCoverImageUrl = function(url) {
                     if (url && $scope.updateMainImageUrlForm.$valid) {
                         $scope.entity.mainImageUrl = url;
+                        $scope.newCoverImageUrl = '';
                     }
                 };
 

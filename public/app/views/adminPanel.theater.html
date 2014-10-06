@@ -6,7 +6,7 @@
                 <div class="edit-entity-form-header" ng-hide="entity._id === undefined">Edit theater</div>
             </div>
 
-            <div class="input-group control-container entity-id-container">
+            <div class="input-group control-container entity-id-container" ng-model="entity.mainImageUrl" ng-required="true">
                 <div class="input-group-addon">Theater main image</div>
                 <div class="form-control">
                     <div class="thumbnail main-image-thumbnail">
@@ -112,7 +112,8 @@
                     </div>
                 </div>
             </div>
-            <div class="input-group control-container theater-halls-edit-list-container">
+            <div class="input-group control-container theater-halls-edit-list-container"
+                 ng-model="entity.halls" empty-array-validator="">
                 <div class="input-group-addon">Halls</div>
                 <div class="form-control">
                     <div class="edit-halls-container">

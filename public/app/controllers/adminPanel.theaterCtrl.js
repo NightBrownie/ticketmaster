@@ -3,8 +3,9 @@
 
     angular.module('ticket-master')
         .controller('adminPanel.theaterCtrl', ['$scope', '$stateParams', '$state', 'routingParameters',
-                'validationRegularExpressions',
-            function($scope, $stateParams, $state, routingParameters, validationRegularExpressions) {
+                'validationRegularExpressions', 'endpointListService', '$http',
+            function($scope, $stateParams, $state, routingParameters, validationRegularExpressions,
+                    endpointListService, $http) {
                 $scope.validationRegularExpressions = validationRegularExpressions;
 
                 var HallTemplate = function() {
@@ -29,40 +30,62 @@
                 $scope.currentEditingHall = null;
                 $scope.newHallRow = new HallRowTemplate();
 
+                $scope.entity = {};
+
+                var defaultEntity = {
+                    name: '',
+                    mainImageUrl: '',
+                    description: '',
+                    subwayStationName: '',
+                    onlineBookingSupported: false,
+                    terminalPaymentSupported: false,
+                    qrCodeReaderSupported: false,
+                    barAllowed: false,
+                    parkingAllowed: false,
+                    address: {
+                        city: '',
+                        street: '',
+                        houseNumb: ''
+                    },
+                    phoneNumber: '',
+                    photos: [],
+                    halls: []
+                };
+
+                var setDefaultFieldsValue = function() {
+                    for (var property in defaultEntity) {
+                        if ($scope.entity[property] == null) {
+                            $scope.entity[property] = defaultEntity[property];
+                        }
+                    }
+                };
+
                 var theaterId = $stateParams.id;
 
                 //check for id and decide if it is a new entity creation or existing entity editing
                 if (theaterId) {
-                    //call $http service to get filmInfo
+                    $http(endpointListService.getTheater(theaterId))
+                        .success(function(data, status) {
+                            $scope.entity = data;
+                            setDefaultFieldsValue();
+                            $scope.isBusy = false;
+                        }).error(function(error, status) {
+                            console.log('An error occurred during theater loading process: ' , error);
+                            $state.go(routingParameters.adminPanelParams.theatersState);
+                            $scope.isBusy = false;
+                        });
                 } else  {
                     $scope.isBusy = false;
 
                     //set default entity structure
-                    $scope.entity = {
-                        name: '',
-                        mainImageUrl: '',
-                        description: '',
-                        subwayStationName: '',
-                        onlineBookingSupported: false,
-                        terminalPaymentSupported: false,
-                        qrCodeReaderSupported: false,
-                        barAllowed: false,
-                        parkingAllowed: false,
-                        address: {
-                            city: '',
-                            street: '',
-                            houseNumb: ''
-                        },
-                        phoneNumber: '',
-                        photos: [],
-                        halls: []
-                    };
+                    setDefaultFieldsValue();
                 }
 
                 //methods
                 $scope.saveMainImageUrl = function(url) {
                     if (url && $scope.newMainImageUrlForm.$valid) {
                         $scope.entity.mainImageUrl = url;
+                        $scope.newMainImageUrl = '';
                     }
                 };
 
@@ -171,12 +194,55 @@
 
                 $scope.saveTheater = function(theater) {
                     if ($scope.theaterEditForm.$valid) {
-                        console.log('theater saved');
+                        if ($scope.entity._id) {
+                            $http(endpointListService.putTheater($scope.entity))
+                                .success(function(data, status) {
+                                    console.log('The theater data is saved'); //TODO: replace with toastr call
+                                    $state.go(routingParameters.adminPanelParams.theatersState);
+                                }).error(function(error, status) {
+                                    console.log(error); //TODO: replace with toastr call
+                                });
+                        } else {
+                            $http(endpointListService.postTheater($scope.entity))
+                                .success(function(data, status) {
+                                    console.log('The theater data is saved'); //TODO: replace with toastr call
+                                    $state.go(routingParameters.adminPanelParams.theatersState);
+                                }).error(function(error, status) {
+                                    console.log(error); //TODO: replace with toastr call
+                                });
+                        }
                     }
                 };
 
                 $scope.removeTheater = function(theater) {
-                    console.log('theater removed');
+                    var entityId = theater._id;
+                    if (!entityId) {
+                        return;
+                    }
+
+                    if (entityId) {
+                        $scope.isBusy = true;
+                        var endpoint = endpointListService.deleteTheater(entityId);
+
+                        if (!endpoint) {
+                            $scope.isBusy = false;
+
+                            //TODO: replace with toastr call to inform user about error
+                            return console.log('Endpoint cannot be created');
+                        }
+
+                        $http(endpoint).success(function(data, status) {
+                            $state.go(routingParameters.adminPanelParams.theatersState);
+                            $scope.isBusy = false;
+                        }).error(function(error, status) {
+                            $scope.isBusy = false;
+
+                            //TODO: replace with toastr call to inform user about error
+                            if (status === 500) {
+                                return console.log('An error occurred during deletion process: ', error);
+                            }
+                        });
+                    }
                 };
             }]);
 })(window);

@@ -81,10 +81,15 @@
     router.put('/film',
         authenticationChecker(), accessRoleChecker(accessLevels.accessLevels.administrator),
         function(req, res) {
-            var film = new FilmDAO(req.body.film);
+            var filmRequest = req.body.film;
 
-            if (film) {
-                film.update(function(error) {
+            if (filmRequest && filmRequest._id) {
+                var condition = { _id: filmRequest._id };
+                delete filmRequest._id;
+
+                var film = new FilmDAO(filmRequest);
+
+                FilmDAO.findOneAndUpdate(condition, filmRequest, function(error) {
                     if (error) {
                         return res.send(500);
                     }
