@@ -26,11 +26,13 @@
                                     deferred.reject(error);
                                     promise = null;
                                 });
+
+                            promise = deferred.promise
                         } else {
                             deferred.resolve(definitions);
                         }
 
-                        return promise = deferred.promise;
+                        return deferred.promise;
                     }
                 };
             }]);

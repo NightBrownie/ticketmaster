@@ -2,10 +2,32 @@
     'use strict';
 
     angular.module('ticket-master')
-        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters', 'accessLevels',
-            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters, accessLevels) {
+        .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'routingParameters', 'accessLevels', '$q',
+            function($stateProvider, $urlRouterProvider, $locationProvider, routingParameters, accessLevels, $q) {
                 //default route
                 $urlRouterProvider.otherwise(routingParameters.defaultRoute);
+
+                var checkAuthForRoute = function() {
+                    var deferred = $q.defer();
+
+                    //TODO: read from the route
+                    var accessLevel = accessLevels.accessLevels.public;
+
+                    authService.checkAuthorization(accessLevel)
+                        .then(function(isAuthorized) {
+                            if (isAuthorized) {
+                                deferred.resolve(isAuthorized);
+                            } else {
+                                deferred.reject(isAuthorized);
+                                $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                            }
+                        }, function(error) {
+                            deferred.reject(error);
+                            $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
+                        });
+
+                    return deferred.promise();
+                };
 
                 //states
                 $stateProvider.state('main', {
@@ -38,6 +60,9 @@
                         }
                     },
                     pageTitle: 'User Profile | Manage your account and get actual information',
+                    resolve: {
+                        auth: checkAuthForRoute
+                    },
                     accessLevel: accessLevels.accessLevels.authenticated
                 }).state('main.schedule', {
                     url: '/schedule',
@@ -154,14 +179,7 @@
                 //TODO: reload page after user data is loaded
                 $rootScope.$broadcast(customEvents.authEvents.userInfoNotFound);
 
-                //TODO: probably replace with call of resolve method
                 $rootScope.$on('$stateChangeStart', function(event, nextState, nextParams, prevState, prevParams) {
-                    //check authentication ang authorization
-                    if (nextState.accessLevel && !authService.isAuthorized(nextState.accessLevel)) {
-                        //event.preventDefault();
-                        return $rootScope.$broadcast(customEvents.authEvents.notAuthorized);
-                    }
-
                     //set page title
                     $rootScope.pageTitle = nextState.pageTitle || routingParameters.defaultPageTitle;
                 });

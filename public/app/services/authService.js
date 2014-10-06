@@ -6,6 +6,8 @@
              'customEvents',
         function($q, authTokenService, $http, $rootScope, accessLevels, endpointListService, customEvents) {
             var currentUserInfo;
+            var userInfoPromise;
+            var authorizationPromise;
 
             var getDefaultUserInfo = function() {
                 return {
@@ -27,19 +29,39 @@
             };
 
             var getCurrentUserInfo = function() {
-                return currentUserInfo
-            };
-
-            var loadUserInfo = function() {
-                if (isCurrentUserAuthenticated()) {
-                    $http(endpointListService.getCurrentUserInfo())
-                        .success(function(data, status) {
-                            setUserInfo(data);
-                        })
-                        .error(function(error, status) {
-                            setDefaultUserInfo();
-                        });
+                if (userInfoPromise) {
+                    return userInfoPromise;
                 }
+
+                var deferred = $q.defer();
+
+                if (isCurrentUserAuthenticated()) {
+                    //check if user info is already loaded
+                    if (isCurrentUserAuthorized(accessLevels.accessLevel.authenticated)) {
+                        deferred.resolve(currentUserInfo);
+                    } else {
+                        $http(endpointListService.getCurrentUserInfo())
+                            .success(function (data, status) {
+                                setUserInfo(data);
+                                deferred.resolve(currentUserInfo);
+                                userInfoPromise = null;
+                            })
+                            .error(function (error, status) {
+                                //remove token because of failure during getting user info process
+                                authTokenService.clearAuthToken();
+                                setDefaultUserInfo();
+
+                                deferred.resolve(currentUserInfo);
+                                userInfoPromise = null;
+                            });
+
+                        userInfoPromise = deferred.promise
+                    }
+                } else {
+                    deferred.resolve(currentUserInfo);
+                }
+
+                return deferred.promise;
             };
 
             var isCurrentUserAuthenticated = function() {
@@ -54,10 +76,11 @@
             setDefaultUserInfo();
 
             $rootScope.$on(customEvents.authEvents.userInfoNotFound, function() {
-                loadUserInfo();
+                getCurrentUserInfo();
             });
 
             $rootScope.$on(customEvents.authEvents.sessionTimeout, function() {
+                authTokenService.clearAuthToken();
                 setDefaultUserInfo();
             });
 
@@ -99,13 +122,28 @@
                 logout: function() {
                     if (isCurrentUserAuthenticated()) {
                         setDefaultUserInfo();
+                        authTokenService.clearAuthToken();
 
                         $rootScope.$broadcast(customEvents.authEvents.logoutSuccess);
                     }
                 },
 
-                isAuthorized: function(accessLevel) {
-                    return isCurrentUserAuthorized(accessLevel);
+                checkAuthorization: function(accessLevel) {
+                    if (authorizationPromise) {
+                        return authorizationPromise;
+                    }
+
+                    var deferred = $q.defer();
+
+                    getCurrentUserInfo.then(function(userInfo){
+                        deferred.resolve(isCurrentUserAuthorized(accessLevel));
+                        authorizationPromise = null;
+                    },function(error) {
+                        deferred.reject(error);
+                        authorizationPromise = null;
+                    });
+
+                    return authorizationPromise = deferred.promise;
                 },
 
                 getUserInfo: function() {

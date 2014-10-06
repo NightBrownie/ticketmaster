@@ -13,11 +13,16 @@
                         var hiddenElementClasses = 'hidden unauthorized-hidden';
 
                         var updateElementVisibility = function() {
-                            if (authService.isAuthorized(scope.accessLevelVisible)) {
-                                element.removeClass(hiddenElementClasses);
-                            } else {
-                                element.addClass(hiddenElementClasses);
-                            }
+                            authService.checkAuthorization(scope.accessLevelVisible)
+                                .then(function(data) {
+                                    if (data) {
+                                        element.removeClass(hiddenElementClasses);
+                                    } else {
+                                        element.addClass(hiddenElementClasses);
+                                    }
+                                }, function(error) {
+                                    element.addClass(hiddenElementClasses);
+                                });
                         };
 
                         $rootScope.$watch('currentUserInfo', function(viewValue) {
