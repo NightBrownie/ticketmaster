@@ -2,7 +2,9 @@
     'use strict';
     
     var mongoose = require('../config/mongooseConfig');
-    
+
+    var genericValidators = require('../modules/validation/genericValidators');
+
     var theaterSchema = mongoose.Schema({
         name: {type: String, required: true},
         mainImageUrl: {type: String, required: true},
@@ -42,6 +44,17 @@
             required: true
         }
     });
-    
+
+    //validators
+    theaterSchema.path('mainImageUrl').validate(genericValidators.validateUrl, 'Invalid main image Url');
+    theaterSchema.path('name').validate(genericValidators.validatePlainText, 'Invalid name');
+    theaterSchema.path('subwayStationName').validate(genericValidators.validatePlainText, 'Invalid subway station name');
+    theaterSchema.path('phoneNumber').validate(genericValidators.validatePhoneNumber, 'Invalid phone number');
+    theaterSchema.path('address.city').validate(genericValidators.validatePlainText, 'Invalid address city');
+    theaterSchema.path('address.street').validate(genericValidators.validatePlainText, 'Invalid address street');
+    theaterSchema.path('address.houseNumb').validate(genericValidators.validatePlainText, 'Invalid address house number');
+    theaterSchema.path('halls.name').validate(genericValidators.validatePlainText, 'Invalid hall name');
+    theaterSchema.path('photos').validate(genericValidators.validateUrl, 'Invalid photo url');
+
     module.exports = mongoose.model('Theater', theaterSchema);
 })(module);

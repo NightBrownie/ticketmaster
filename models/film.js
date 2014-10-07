@@ -3,6 +3,8 @@
 
     var mongoose = require('../config/mongooseConfig');
 
+    var genericValidators = require('../modules/validation/genericValidators');
+
     var filmSchema = mongoose.Schema({
         name: {type: String, required: true},
         description: {type: String, required: true},
@@ -25,7 +27,12 @@
     });
 
     //validators
-    //film name should not match /^\s*$/ regexp (empty spaces)
+    filmSchema.path('mainImageUrl').validate(genericValidators.validateUrl, 'Invalid main image Url');
+    filmSchema.path('name').validate(genericValidators.validatePlainText, 'Invalid name');
+    filmSchema.path('genre').validate(genericValidators.validatePlainText, 'Invalid genre');
+    filmSchema.path('director').validate(genericValidators.validatePlainText, 'Invalid director');
+    filmSchema.path('mainActors').validate(genericValidators.validatePlainText, 'Invalid actor name');
+    filmSchema.path('frameUrls').validate(genericValidators.validateUrl, 'Invalid frame url');
 
     module.exports = mongoose.model('Film', filmSchema);
 })(module);
